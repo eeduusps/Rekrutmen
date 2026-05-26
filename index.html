@@ -297,7 +297,7 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
       </div>
     </div>
     <div class="dash-card">
-      <h3>⏰ Perlu Perhatian <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(Ongoing/Hold > 30 hari)</span></h3>
+      <h3>⏰ Perlu Perhatian <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(Ongoing > 30 hari)</span></h3>
       <div id="attentionList"></div>
     </div>
   </div>
@@ -402,11 +402,21 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
         <div><label for="fStatus">Status</label><select id="fStatus"></select></div>
         <div><label for="fExp">Experience</label><select id="fExp"><option>Freshgraduate</option><option>Middle</option><option>Pro</option><option>Expert</option></select></div>
         <div><label for="fPIC">PIC</label><select id="fPIC"></select></div>
-        <div><label for="fAT">AT (Assessment Test)</label><select id="fAT"><option>Iya</option><option>Tidak</option></select></div>
+        <div><label for="fAT">AT</label><select id="fAT"><option>Iya</option><option>Tidak</option></select></div>
         <div class="full"><label for="fKet">Keterangan</label><textarea id="fKet" rows="3" placeholder="Catatan tambahan, hasil interview, dll."></textarea></div>
-        <div class="full"><label>CV (PDF/Word)</label><input type="file" id="fCV" accept=".pdf,.doc,.docx"><div id="fCVInfo" style="font-size:11.5px;color:var(--muted);margin-top:4px"></div></div>
+<div class="full">
+  <label>Foto Kandidat</label>
+  <input type="file" id="fPhoto" accept="image/*">
+  <div id="fPhotoInfo" style="font-size:11.5px;color:var(--muted);margin-top:4px"></div>
+</div>        
+<div class="full"><label>CV (PDF/Word)</label><input type="file" id="fCV" accept=".pdf,.doc,.docx"><div id="fCVInfo" style="font-size:11.5px;color:var(--muted);margin-top:4px"></div></div>
         <div class="full">
           <label>Checklist Tahapan Rekrutmen</label>
+<div style="margin-top:14px">
+  <label for="fStageNotes">Notes Tahapan</label>
+  <textarea id="fStageNotes" rows="6"
+    placeholder="[SDM]&#10;Lolos interview&#10;&#10;[User]&#10;Menunggu approval"></textarea>
+</div>
           <div class="checklist-grid" id="fChecklist"></div>
         </div>
       </div>
@@ -642,7 +652,10 @@ function renderDashboard(){
   }).join('')||'<p style="color:var(--muted);font-size:13px">-</p>';
 
   // Attention
-  const attention=candidates.filter(c=>(c.status==='Ongoing'||c.status==='Hold')&&daysSince(c.tanggalInvitation)>30)
+  const attention=candidates.filter(c=>
+  c.status==='Ongoing' &&
+  daysSince(c.tanggalInvitation)>30
+)
     .sort((a,b)=>daysSince(b.tanggalInvitation)-daysSince(a.tanggalInvitation));
   const list=document.getElementById('attentionList');
   if(!attention.length){list.innerHTML='<p style="color:var(--muted);font-size:13px;text-align:center;padding:20px">✓ Tidak ada kandidat yang perlu perhatian khusus.</p>'}
@@ -726,7 +739,11 @@ function renderTable(){
       const selected=selectedIds.has(c.id)?'selected':'';
       return `<tr class="${selected}">
         <td><input type="checkbox" class="row-check" ${selectedIds.has(c.id)?'checked':''} onchange="toggleSelect('${c.id}',this.checked)"></td>
-        <td><div class="cell-name"><span class="avatar">${initials(c.nama)}</span><span>${esc(c.nama)}</span></div></td>
+        <td><div class="cell-name">${
+  c.photoData
+  ? `<img src="${c.photoData}" class="avatar" style="object-fit:cover">`
+  : `<span class="avatar">${initials(c.nama)}</span>`
+}<span>${esc(c.nama)}</span></div></td>
         <td>${fmtDate(c.tanggalInvitation)}${agingText}</td>
         <td>${esc(c.universitas)||'<span style="color:var(--muted-2)">-</span>'}</td>
         <td><b>${esc(c.posisi)}</b></td>
@@ -800,10 +817,39 @@ async function toggleCheck(id,stage){
 }
 
 // ==================== ADD/EDIT MODAL ====================
+
+function appendStageNote(stage, checked){
+  if(!checked) return;
+
+  const textarea=document.getElementById('fStageNotes');
+  if(!textarea) return;
+
+  const tag=`[${stage}]`;
+
+  // kalau sudah ada jangan duplicate
+  if(textarea.value.includes(tag)) return;
+
+  // tambah spacing otomatis
+  if(textarea.value.trim()!==''){
+    textarea.value += '\n\n';
+  }
+
+  textarea.value += `${tag}\n- `;
+}
+
 function populateFormSelects(){
   const fill=(id,arr)=>{document.getElementById(id).innerHTML=arr.map(v=>`<option>${esc(v)}</option>`).join('')};
   fill('fPosisi',config.positions);fill('fStatus',config.statuses);fill('fPIC',config.pics);
-  document.getElementById('fChecklist').innerHTML=config.stages.map(s=>`<label><input type="checkbox" value="${esc(s)}"> ${esc(s)}</label>`).join('');
+  document.getElementById('fChecklist').innerHTML=config.stages.map(s=>`
+  <label>
+    <input 
+      type="checkbox" 
+      value="${esc(s)}"
+      onchange="appendStageNote('${esc(s)}', this.checked)"
+    > 
+    ${esc(s)}
+  </label>
+`).join('');
 }
 function resetFilters(){
   ['searchInput','filterStatus','filterExp','filterPIC','filterPos','filterAT','filterYear','filterStage'].forEach(id=>document.getElementById(id).value='');
@@ -815,7 +861,7 @@ function openAddModal(){
   document.getElementById('modalTitle').textContent='Tambah Kandidat';
   document.getElementById('btnSave').textContent='Tambah Kandidat';
   populateFormSelects();
-  ['fNama','fUniv','fKet','fCV'].forEach(id=>document.getElementById(id).value='');
+  ['fNama','fUniv','fKet','fStageNotes','fCV'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fCVInfo').textContent='';
   document.getElementById('fTgl').value=today();
   document.getElementById('fExp').value='Freshgraduate';
@@ -839,6 +885,7 @@ function openEditModal(id){
   document.getElementById('fPIC').value=c.pic||'';
   document.getElementById('fAT').value=c.at||'Tidak';
   document.getElementById('fKet').value=c.keterangan||'';
+document.getElementById('fStageNotes').value=c.stageNotes||'';
   document.getElementById('fCV').value='';
   document.getElementById('fCVInfo').textContent=c.cvName?'CV saat ini: '+c.cvName:'';
   document.querySelectorAll('#fChecklist input').forEach(cb=>cb.checked=!!(c.checklist&&c.checklist[cb.value]));
@@ -847,6 +894,15 @@ function openEditModal(id){
 function closeModal(){document.getElementById('modal').style.display='none'}
 
 document.getElementById('fCV').addEventListener('change',e=>{
+document.getElementById('fPhoto').addEventListener('change',e=>{
+  const f=e.target.files[0];
+  const info=document.getElementById('fPhotoInfo');
+
+  if(f){
+    const mb=(f.size/1024/1024).toFixed(2);
+    info.textContent=`🖼 ${f.name} (${mb} MB)`;
+  }
+});
   const f=e.target.files[0];const info=document.getElementById('fCVInfo');
   if(f){const mb=(f.size/1024/1024).toFixed(2);info.textContent=`📎 ${f.name} (${mb} MB)`;if(f.size>5*1024*1024)info.innerHTML+=' <span style="color:var(--warning)">⚠ file besar</span>'}
 });
@@ -865,17 +921,35 @@ async function saveCandidate(){
   const now=new Date().toISOString();
   const checklist={};
   document.querySelectorAll('#fChecklist input').forEach(cb=>{if(cb.checked)checklist[cb.value]=true});
-  let cvName='',cvData=null;
+ let cvName='',cvData=null;
+let photoName='',photoData=null;
   const cvFile=document.getElementById('fCV').files[0];
+const photoFile=document.getElementById('fPhoto').files[0];
   if(cvFile){cvName=cvFile.name;cvData=await readFileAsBase64(cvFile)}
+if(photoFile){
+  photoName=photoFile.name;
+  photoData=await readFileAsBase64(photoFile);
+}
+else if(editId){
+  const ex=candidates.find(x=>x.id===editId);
+  if(ex){
+    photoName=ex.photoName||'';
+    photoData=ex.photoData||null;
+  }
+}
   else if(editId){const ex=candidates.find(x=>x.id===editId);if(ex){cvName=ex.cvName||'';cvData=ex.cvData||null}}
   const candidate={
-    id:editId||uid(),nama,
+  id:editId||uid(),
+  nama,
+
+  photoName,
+  photoData,
     tanggalInvitation:document.getElementById('fTgl').value||today(),
     universitas:document.getElementById('fUniv').value,
     posisi:document.getElementById('fPosisi').value,
     status:document.getElementById('fStatus').value,
     keterangan:document.getElementById('fKet').value,
+stageNotes:document.getElementById('fStageNotes').value,
     experience:document.getElementById('fExp').value,
     pic:document.getElementById('fPIC').value,
     at:document.getElementById('fAT').value,
@@ -904,7 +978,11 @@ function openViewModal(id){
   const d=daysSince(c.tanggalInvitation);
   document.getElementById('viewContent').innerHTML=`
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
-      <div class="avatar" style="width:56px;height:56px;font-size:20px">${initials(c.nama)}</div>
+      ${
+  c.photoData
+  ? `<img src="${c.photoData}" class="avatar" style="width:56px;height:56px;object-fit:cover">`
+  : `<div class="avatar" style="width:56px;height:56px;font-size:20px">${initials(c.nama)}</div>`
+}
       <div style="flex:1">
         <div style="font-size:18px;font-weight:700">${esc(c.nama)}</div>
         <div style="color:var(--muted);font-size:13px">${esc(c.posisi||'-')} · ${esc(c.universitas||'-')}</div>
@@ -922,6 +1000,10 @@ function openViewModal(id){
     <div class="detail-grid">
       <div>Tgl Invitation</div><div>${fmtDate(c.tanggalInvitation)} <span style="color:var(--muted);font-size:11.5px">(${d} hari lalu)</span></div>
       <div>Keterangan</div><div style="white-space:pre-wrap">${esc(c.keterangan)||'<span style="color:var(--muted)">-</span>'}</div>
+<div>Notes Tahapan</div>
+<div style="white-space:pre-wrap">
+  ${esc(c.stageNotes)||'<span style="color:var(--muted)">-</span>'}
+</div>
       <div>CV</div><div>${cvHtml}</div>
     </div>
     <div class="detail-section">
