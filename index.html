@@ -258,11 +258,6 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
   <div class="btn-group">
     <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">🌙</button>
     <button class="btn btn-ghost btn-icon" onclick="openHelp()" title="Bantuan & Shortcut">?</button>
-    <button class="btn btn-outline" onclick="resetFilters()" title="Reset filter">♻ Reset</button>
-    <button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync Manual</button>
-    <input type="file" id="syncFile" accept=".csv" style="display:none" onchange="handleSync(event)">
-    <button class="btn btn-outline" onclick="exportCSV()" title="Export CSV">💾 Export</button>
-<button class="btn btn-outline" onclick="autoSyncCSV()">🔐Auto Sync</button>
     <button class="btn btn-primary" onclick="openAddModal()">＋ Tambah Kandidat</button>
   </div>
 </header>
@@ -330,6 +325,8 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
           <option value="progress_asc">Progress Terendah</option>
           <option value="nama_asc">Nama A-Z</option>
         </select>
+    <button class="btn btn-outline" onclick="resetFilters()" title="Reset filter">♻ Reset FIlter</button>
+
         <span class="count" id="countLabel">0 kandidat</span>
       </div>
       <div class="chip-row" id="quickStatusChips"></div>
@@ -372,6 +369,13 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
       <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Menghapus semua data kandidat tidak dapat dibatalkan.</p>
       <button class="btn btn-danger" onclick="clearAllData()">🗑 Hapus Semua Data Kandidat</button>
     </div>
+
+<div class="config-section"><h3>💼 Database Option</h3>
+<button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync Manual</button>
+    <input type="file" id="syncFile" accept=".csv" style="display:none" onchange="handleSync(event)">
+    <button class="btn btn-outline" onclick="exportCSV()" title="Export CSV">💾 Export</button>
+<button class="btn btn-outline" onclick="autoSyncCSV()">🔐Auto Sync</button></div>
+
     <div class="config-section"><h3>💼 Posisi Pekerjaan</h3><div class="tag-list" id="tagPositions"></div>
       <div class="add-row"><input id="addPosition" placeholder="Tambah posisi..." onkeydown="if(event.key==='Enter')addConfigItem('positions','addPosition')"><button class="btn btn-sm btn-primary" onclick="addConfigItem('positions','addPosition')">＋ Tambah</button></div>
     </div>
