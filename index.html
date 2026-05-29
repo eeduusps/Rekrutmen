@@ -260,6 +260,7 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
     <button class="btn btn-ghost btn-icon" onclick="openHelp()" title="Bantuan & Shortcut">?</button>
     <button class="btn btn-outline" onclick="resetFilters()" title="Reset filter">♻ Reset</button>
     <button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync</button>
+    <button class="btn btn-outline" onclick="autoSyncJSON()">🔐 Auto Sync JSON</button>
     <input type="file" id="syncFile" accept=".csv" style="display:none" onchange="handleSync(event)">
     <button class="btn btn-outline" onclick="exportCSV()" title="Export CSV">⬇ Export</button>
     <button class="btn btn-primary" onclick="openAddModal()">＋ Tambah Kandidat</button>
@@ -1169,6 +1170,52 @@ document.addEventListener('keydown',e=>{
   renderTable();
   renderDashboard();
 })();
+
+const SYNC_PASSWORD = "sdm@2026";
+
+async function autoSyncJSON(){
+
+  const pass = prompt("Masukkan password sync:");
+
+  if(pass !== SYNC_PASSWORD){
+    alert("Password salah!");
+    return;
+  }
+
+  try{
+
+    const response = await fetch('./database/kandidat.json');
+
+    if(!response.ok){
+      alert("File JSON tidak ditemukan");
+      return;
+    }
+
+    const jsonData = await response.json();
+
+    // masukkan ke candidates
+    candidates = jsonData;
+
+    // simpan ke IndexedDB
+    for(const item of candidates){
+      await dbPut('candidates', item);
+    }
+
+    await loadCandidates();
+
+    renderTable();
+    renderDashboard();
+
+    alert("Sync berhasil!");
+
+  }catch(err){
+
+    console.error(err);
+    alert("Gagal sync JSON");
+
+  }
+}
+
 </script>
 
 <footer style="margin-top:30px;background:linear-gradient(135deg,#4361ee,#3a0ca3);color:#fff;padding:24px 20px;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -4px 20px rgba(0,0,0,.1)">
