@@ -279,7 +279,7 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
     <div class="stat-grid" id="statGrid"></div>
     <div class="dash-grid">
       <div class="dash-card">
-        <h3>🪜 Funnel Tahapan Rekrutmen <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(jumlah lolos per tahap)</span></h3>
+        <h3>🪜 Tahapan Rekrutmen <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(jumlah lolos per tahap)</span></h3>
         <div class="funnel" id="funnelChart"></div>
       </div>
       <div class="dash-card">
@@ -1172,18 +1172,28 @@ document.addEventListener('keydown',e=>{
 })();
 
 // ==================== AUTOSYNC ====================
-const SYNC_PASSWORD = "sdm@2026";
 
 async function autoSyncCSV(){
 
-  const pass = prompt(
-    "Masukkan password sync:"
-  );
+ // ambil password dari security.json
+const securityResponse =
+  await fetch("./config/security.json");
 
-  if(pass !== SYNC_PASSWORD){
-    alert("Password salah!");
-    return;
-  }
+const security =
+  await securityResponse.json();
+
+// input password user
+const pass = prompt(
+  "Masukkan password sync:"
+);
+
+// cek password
+if(
+  pass !== security.syncPassword
+){
+  alert("Password salah!");
+  return;
+}
 
   try{
 
