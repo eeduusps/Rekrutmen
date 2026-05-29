@@ -342,19 +342,14 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
   >
 
     <h3 style="
-      font-size:14px;
+      font-size:20px;
       font-weight:700;
-    ">
-      🔎 Filter
-    </h3>
-
-    <button
-      class="btn btn-outline btn-sm"
+class="btn btn-outline btn-sm"
       onclick="toggleFilters()"
       id="filterToggleBtn"
-    >
-      🔼 Sembunyikan
-    </button>
+    ">
+      🔎 Show Filter
+    </h3>
 
   </div>
 
@@ -770,13 +765,13 @@ function toggleFilters(){
 
     content.style.display = 'none';
 
-    btn.innerHTML = '🔽 Tampilkan';
+    btn.innerHTML = '🔎 Show Filter';
 
   }else{
 
     content.style.display = '';
 
-    btn.innerHTML = '🔼 Sembunyikan';
+    btn.innerHTML = '🔎 Close Filter';
 
   }
 }
