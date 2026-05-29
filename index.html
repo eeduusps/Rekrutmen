@@ -898,18 +898,39 @@ document.getElementById('fStageNotes').value=c.stageNotes||'';
 }
 function closeModal(){document.getElementById('modal').style.display='none'}
 
-document.getElementById('fCV').addEventListener('change',e=>{
-document.getElementById('fPhoto').addEventListener('change',e=>{
-  const f=e.target.files[0];
-  const info=document.getElementById('fPhotoInfo');
+// ================= FILE CV =================
+document.getElementById('fCV').addEventListener('change', e => {
+  const f = e.target.files[0];
+  const info = document.getElementById('fCVInfo');
 
-  if(f){
-    const mb=(f.size/1024/1024).toFixed(2);
-    info.textContent=`🖼 ${f.name} (${mb} MB)`;
+  if (f) {
+    const mb = (f.size / 1024 / 1024).toFixed(2);
+
+    info.textContent =
+      `📎 ${f.name} (${mb} MB)`;
+
+    if (f.size > 5 * 1024 * 1024) {
+      info.innerHTML +=
+        ' <span style="color:orange">⚠ file besar</span>';
+    }
+  } else {
+    info.textContent = '';
   }
 });
-  const f=e.target.files[0];const info=document.getElementById('fCVInfo');
-  if(f){const mb=(f.size/1024/1024).toFixed(2);info.textContent=`📎 ${f.name} (${mb} MB)`;if(f.size>5*1024*1024)info.innerHTML+=' <span style="color:var(--warning)">⚠ file besar</span>'}
+
+// ================= FOTO =================
+document.getElementById('fPhoto').addEventListener('change', e => {
+  const f = e.target.files[0];
+  const info = document.getElementById('fPhotoInfo');
+
+  if (f) {
+    const mb = (f.size / 1024 / 1024).toFixed(2);
+
+    info.textContent =
+      `🖼 ${f.name} (${mb} MB)`;
+  } else {
+    info.textContent = '';
+  }
 });
 
 async function saveCandidate(){
@@ -932,14 +953,26 @@ let photoName='',photoData=null;
 const photoFile=document.getElementById('fPhoto').files[0];
   if(cvFile){cvName=cvFile.name;cvData=await readFileAsBase64(cvFile)}
 if(photoFile){
-  photoName=photoFile.name;
-  photoData=await readFileAsBase64(photoFile);
-}
-else if(editId){
-  const ex=candidates.find(x=>x.id===editId);
+  photoName = photoFile.name;
+  photoData = await readFileAsBase64(photoFile);
+} else if(editId){
+  const ex = candidates.find(x => x.id === editId);
+
   if(ex){
-    photoName=ex.photoName||'';
-    photoData=ex.photoData||null;
+    photoName = ex.photoName || '';
+    photoData = ex.photoData || null;
+  }
+}
+
+if(cvFile){
+  cvName = cvFile.name;
+  cvData = await readFileAsBase64(cvFile);
+} else if(editId){
+  const ex = candidates.find(x => x.id === editId);
+
+  if(ex){
+    cvName = ex.cvName || '';
+    cvData = ex.cvData || null;
   }
 }
   else if(editId){const ex=candidates.find(x=>x.id===editId);if(ex){cvName=ex.cvName||'';cvData=ex.cvData||null}}
@@ -964,7 +997,7 @@ stageNotes:document.getElementById('fStageNotes').value,
   };
   await dbPut('candidates',candidate);
 // auto update csv
-await saveCSVDatabase();
+//await saveCSVDatabase();
   await loadCandidates();populateYearFilter();renderTable();
   closeModal();
   notify(editId?'Data kandidat diperbarui.':'Kandidat baru ditambahkan.','success');
