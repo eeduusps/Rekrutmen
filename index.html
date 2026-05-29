@@ -1201,7 +1201,8 @@ async function autoSyncCSV(){
 
 const lines = csvText
   .trim()
-  .split(/\r?\n/);
+  .split(/\r?\n/)
+  .filter(line => line.trim() !== "");
 
 // auto detect separator
 const separator =
@@ -1209,27 +1210,62 @@ const separator =
     ? ";"
     : ",";
 
-const rows = lines.map(
-  r => r.split(separator)
-);
+// ambil header
+const rawHeaders = lines[0]
+  .split(separator)
+  .map(h => h.trim());
 
-const headers = rows[0];
+// mapping header CSV → sistem HTML
+const headerMap = {
+  "ID": "id",
+  "Nama": "nama",
+  "Tanggal Invitation": "tanggalInvitation",
+  "Universitas": "universitas",
+  "Posisi": "posisi",
+  "Status": "status",
+  "Keterangan": "keterangan",
+  "Experience": "experience",
+  "PIC": "pic",
+  "AT": "at",
+  "Created At": "createdAt",
+  "Updated At": "updatedAt"
+};
 
-const data = rows
+const data = lines
   .slice(1)
-  .filter(r => r.length > 1)
-  .map(row => {
+  .map(line => {
+
+    const cols = line
+      .split(separator)
+      .map(c =>
+        c
+          .replace(/^"|"$/g, "")
+          .trim()
+      );
 
     let obj = {};
 
-    headers.forEach((h,i)=>{
+    rawHeaders.forEach((header, i) => {
 
-      obj[h.trim()] =
-        row[i]
-          ? row[i].trim()
-          : "";
+      const key =
+        headerMap[header] || header;
+
+      obj[key] = cols[i] || "";
 
     });
+
+    // checklist recruitment
+    obj.checklist = {
+      "SDM": cols[10] === "TRUE",
+      "User": cols[11] === "TRUE",
+      "Psikotest": cols[12] === "TRUE",
+      "Kadiv User": cols[13] === "TRUE",
+      "Kadiv PSU": cols[14] === "TRUE",
+      "Direktur KAD": cols[15] === "TRUE",
+      "Direktur User": cols[16] === "TRUE",
+      "MCU": cols[17] === "TRUE",
+      "Offering": cols[18] === "TRUE"
+    };
 
     return obj;
 
