@@ -359,7 +359,27 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
         <tbody id="tableBody"></tbody>
       </table>
     </div>
-    <div class="pagination" id="pagination"></div>
+    <div class="pagination">
+
+  <div style="margin-right:auto">
+    <label style="font-size:12px;color:var(--muted)">
+      Tampilkan
+    </label>
+
+    <select id="pageSize"
+      onchange="changePageSize()"
+      style="width:80px">
+
+      <option value="20" selected>20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+
+    </select>
+  </div>
+
+  <div id="pagination"></div>
+
+</div>
   </div>
 
   <!-- =================== CONFIG =================== -->
@@ -518,7 +538,7 @@ let config={...DEFAULT_CONFIG};
 let candidates=[];
 let editId=null;
 let selectedIds=new Set();
-const PAGE_SIZE=20;
+let PAGE_SIZE=20;
 let currentPage=0;
 const STATUS_CLASS={Ditolak:'badge-danger',Ongoing:'badge-info',Hold:'badge-warning',Done:'badge-success',Mundur:'badge-muted'};
 
@@ -677,6 +697,18 @@ function renderDashboard(){
 }
 
 // ==================== TABLE ====================
+
+function changePageSize(){
+
+  PAGE_SIZE = parseInt(
+    document.getElementById('pageSize').value
+  );
+
+  currentPage = 0;
+
+  renderTable();
+}
+
 function renderQuickChips(){
   const c=document.getElementById('quickStatusChips');
   const cur=document.getElementById('filterStatus').value;
@@ -770,11 +802,51 @@ function renderTable(){
   // Pagination
   const pg=document.getElementById('pagination');
   if(totalPages>1){
-    pg.innerHTML=`<button class="btn btn-sm btn-outline" ${currentPage===0?'disabled':''} onclick="currentPage=0;renderTable()">⏮</button>
-      <button class="btn btn-sm btn-outline" ${currentPage===0?'disabled':''} onclick="currentPage--;renderTable()">◀</button>
-      <span style="font-size:13px;color:var(--muted);padding:0 10px">Hal ${currentPage+1} dari ${totalPages}</span>
-      <button class="btn btn-sm btn-outline" ${currentPage>=totalPages-1?'disabled':''} onclick="currentPage++;renderTable()">▶</button>
-      <button class="btn btn-sm btn-outline" ${currentPage>=totalPages-1?'disabled':''} onclick="currentPage=${totalPages-1};renderTable()">⏭</button>`;
+pg.innerHTML=`
+
+  <button class="btn btn-sm btn-outline"
+    ${currentPage===0?'disabled':''}
+    onclick="currentPage=0;renderTable()">
+    ⏮
+  </button>
+
+  <button class="btn btn-sm btn-outline"
+    ${currentPage===0?'disabled':''}
+    onclick="currentPage--;renderTable()">
+    ◀
+  </button>
+
+  <span style="padding:0 10px">
+    Hal ${currentPage+1} dari ${totalPages}
+  </span>
+
+  <button class="btn btn-sm btn-outline"
+    ${currentPage>=totalPages-1?'disabled':''}
+    onclick="currentPage++;renderTable()">
+    ▶
+  </button>
+
+  <button class="btn btn-sm btn-outline"
+    ${currentPage>=totalPages-1?'disabled':''}
+    onclick="currentPage=${totalPages-1};renderTable()">
+    ⏭
+  </button>
+
+  <span style="
+    margin-right:12px;
+    font-size:12px;
+    color:var(--muted)
+  ">
+    Menampilkan
+    ${filtered.length===0?0:(currentPage*PAGE_SIZE)+1}
+    -
+    ${Math.min((currentPage+1)*PAGE_SIZE, filtered.length)}
+    dari
+    ${filtered.length}
+    data
+  </span>
+
+`;
   } else pg.innerHTML='';
 
   updateBulkBar();
