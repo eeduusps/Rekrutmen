@@ -259,10 +259,11 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
     <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">🌙</button>
     <button class="btn btn-ghost btn-icon" onclick="openHelp()" title="Bantuan & Shortcut">?</button>
     <button class="btn btn-outline" onclick="resetFilters()" title="Reset filter">♻ Reset</button>
-    <button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync</button>
-    <button class="btn btn-outline" onclick="autoSyncCSV()">🔐Auto Sync</button>
+    <button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync Manual</button>
     <input type="file" id="syncFile" accept=".csv" style="display:none" onchange="handleSync(event)">
     <button class="btn btn-outline" onclick="exportCSV()" title="Export CSV">⬇ Export</button>
+<button class="btn btn-outline" onclick="autoSyncCSV()">🔐Auto Sync</button>
+<button class="btn btn-success" onclick="saveCSVDatabase()">💾 Save</button>
     <button class="btn btn-primary" onclick="openAddModal()">＋ Tambah Kandidat</button>
   </div>
 </header>
@@ -959,6 +960,8 @@ stageNotes:document.getElementById('fStageNotes').value,
     updatedAt:now
   };
   await dbPut('candidates',candidate);
+// auto update csv
+await saveCSVDatabase();
   await loadCandidates();populateYearFilter();renderTable();
   closeModal();
   notify(editId?'Data kandidat diperbarui.':'Kandidat baru ditambahkan.','success');
@@ -1175,7 +1178,7 @@ document.addEventListener('keydown',e=>{
 
 async function autoSyncCSV(){
 
- // ambil password dari security.json
+// ambil password dari security.json
 const securityResponse =
   await fetch("./config/security.json");
 
@@ -1316,6 +1319,84 @@ const data = lines
     );
 
   }
+}
+
+async function saveCSVDatabase(){
+
+  try{
+
+    // ambil semua data
+    const data =
+      await dbGetAll(
+        "candidates"
+      );
+
+    if(!data.length) return;
+
+    // header csv
+    const headers =
+      Object.keys(data[0]);
+
+    // buat csv
+    let csv = headers.join(";") + "\n";
+
+    data.forEach(item => {
+
+      const row = headers.map(h => {
+
+        let value =
+          item[h] ?? "";
+
+        // object jadi string
+        if(
+          typeof value === "object"
+        ){
+          value =
+            JSON.stringify(value);
+        }
+
+        return `"${value}"`;
+
+      });
+
+      csv += row.join(";") + "\n";
+
+    });
+
+    // buat file download
+    const blob = new Blob(
+      [csv],
+      {
+        type: "text/csv"
+      }
+    );
+
+    // simpan otomatis
+    const link =
+      document.createElement("a");
+
+    link.href =
+      "./database/kandidat.csv";
+
+    link.download =
+      "kandidat.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(
+      link.href
+    );
+
+    console.log(
+      "CSV updated"
+    );
+
+  }catch(err){
+
+    console.error(err);
+
+  }
+
 }
 </script>
 
