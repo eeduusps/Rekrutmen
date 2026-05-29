@@ -1202,7 +1202,7 @@ async function autoSyncCSV(){
     // convert csv
     const rows = csvText
       .split("\n")
-      .map(r => r.split(","));
+      .map(r => r.split(";"));
 
     const headers = rows[0];
 
