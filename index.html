@@ -414,9 +414,10 @@ class="btn btn-outline btn-sm"
           <th>Progress</th>
           <th>Exp</th>
           <th>PIC</th>
+          <th>Notes</th>
           <th>AT</th>
           <th>CV</th>
-          <th style="text-align:right">Aksi</th>
+          <th style="text-align:auto">Aksi</th>
         </tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
@@ -1341,7 +1342,24 @@ async function deleteCandidate(id){
 function exportCSV(){exportCSVData(candidates,'kandidat_'+today()+'.csv')}
 function exportCSVData(data,filename){
   const stageHeaders=config.stages;
-  const header=['ID','Nama','Tanggal Invitation','Universitas','Posisi','Status','Keterangan','Experience','PIC','lowongan','AT',...stageHeaders,'stagenotes','CV Filename','Created At','Updated At'];
+const header=[
+ 'ID',
+ 'Nama',
+ 'Tanggal Invitation',
+ 'Universitas',
+ 'Posisi',
+ 'Status',
+ 'Keterangan',
+ 'Experience',
+ 'PIC',
+ 'Lowongan',
+ 'AT',
+ ...config.stages,
+ 'Stage Notes',
+ 'CV Filename',
+ 'Created At',
+ 'Updated At'
+];
   const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.lowongan || '',c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),c.stageNotes || '',c.cvName||'',c.createdAt,c.updatedAt]);
   let csv='\uFEFF'+header.map(h=>'"'+h+'"').join(';')+'\n';
   rows.forEach(r=>{csv+=r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(';')+'\n'});
@@ -1368,7 +1386,7 @@ async function handleSync(event){
       const id=g('ID')||uid();
       const existing=candidates.find(x=>x.id===id);
       if(existing)updated++;else count++;
-      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:g('StageNotes'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
+      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:g('Stage Notes'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
       await dbPut('candidates',candidate);
     }
     await loadCandidates();populateYearFilter();renderTable();
@@ -1516,18 +1534,21 @@ const rawHeaders = lines[0]
 
 // mapping header CSV → sistem HTML
 const headerMap = {
-  "ID": "id",
-  "Nama": "nama",
-  "Tanggal Invitation": "tanggalInvitation",
-  "Universitas": "universitas",
-  "Posisi": "posisi",
-  "Status": "status",
-  "Keterangan": "keterangan",
-  "Experience": "experience",
-  "PIC": "pic",
-  "AT": "at",
-  "Created At": "createdAt",
-  "Updated At": "updatedAt"
+  "ID":"id",
+  "Nama":"nama",
+  "Tanggal Invitation":"tanggalInvitation",
+  "Universitas":"universitas",
+  "Posisi":"posisi",
+  "Status":"status",
+  "Keterangan":"keterangan",
+  "Experience":"experience",
+  "PIC":"pic",
+  "Lowongan":"lowongan",
+  "AT":"at",
+  "Stage Notes":"stageNotes",
+  "CV Filename":"cvName",
+  "Created At":"createdAt",
+  "Updated At":"updatedAt"
 };
 
 const data = lines
@@ -1554,17 +1575,18 @@ const data = lines
     });
 
     // checklist recruitment
-    obj.checklist = {
-      "SDM": cols[10] === "TRUE",
-      "User": cols[11] === "TRUE",
-      "Psikotest": cols[12] === "TRUE",
-      "Kadiv User": cols[13] === "TRUE",
-      "Kadiv PSU": cols[14] === "TRUE",
-      "Direktur KAD": cols[15] === "TRUE",
-      "Direktur User": cols[16] === "TRUE",
-      "MCU": cols[17] === "TRUE",
-      "Offering": cols[18] === "TRUE"
-    };
+    obj.checklist = {};
+
+config.stages.forEach(stage=>{
+
+  const stageIndex =
+    rawHeaders.indexOf(stage);
+
+  obj.checklist[stage] =
+    cols[stageIndex] === "true" ||
+    cols[stageIndex] === "TRUE";
+
+});
 
     return obj;
 
