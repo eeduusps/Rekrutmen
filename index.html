@@ -313,15 +313,24 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
       </div>
     </div>
     <div class="dash-grid">
-      <div class="dash-card">
-        <h3>💼 Top Posisi Dilamar</h3>
-        <div class="breakdown" id="positionBreakdown"></div>
-      </div>
-      <div class="dash-card">
-        <h3>👤 Beban PIC</h3>
-        <div class="breakdown" id="picBreakdown"></div>
-      </div>
-    </div>
+
+  <div class="dash-card">
+    <h3>💼 Top Posisi Dilamar</h3>
+    <div class="breakdown" id="positionBreakdown"></div>
+  </div>
+
+  <div class="dash-card">
+    <h3>👤 Beban PIC</h3>
+    <div class="breakdown" id="picBreakdown"></div>
+  </div>
+
+  <div class="dash-card">
+    <h3>📢 Sumber Lowongan</h3>
+    <div class="breakdown" id="lowonganBreakdown"></div>
+  </div>
+
+</div>
+
     <div class="dash-card">
       <h3>⏰ Perlu Perhatian <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(Ongoing > 30 hari)</span></h3>
       <div id="attentionList"></div>
@@ -348,7 +357,7 @@ class="btn btn-outline btn-sm"
       onclick="toggleFilters()"
       id="filterToggleBtn"
     ">
-      🔎 Show Filter
+      🔎 Filter
     </h3>
 
   </div>
@@ -458,6 +467,27 @@ class="btn btn-outline btn-sm"
     <div class="config-section"><h3>👤 PIC</h3><div class="tag-list" id="tagPics"></div>
       <div class="add-row"><input id="addPic" placeholder="Tambah PIC..." onkeydown="if(event.key==='Enter')addConfigItem('pics','addPic')"><button class="btn btn-sm btn-primary" onclick="addConfigItem('pics','addPic')">＋ Tambah</button></div>
     </div>
+
+<div class="config-section">
+  <h3>📢 Sumber Lowongan</h3>
+
+  <div class="tag-list" id="tagLowongan"></div>
+
+  <div class="add-row">
+    <input
+      id="addLowongan"
+      placeholder="Tambah sumber lowongan..."
+      onkeydown="if(event.key==='Enter')addConfigItem('lowongan','addLowongan')">
+
+    <button
+      class="btn btn-sm btn-primary"
+      onclick="addConfigItem('lowongan','addLowongan')">
+
+      ＋ Tambah
+    </button>
+  </div>
+</div>
+
     <div class="config-section"><h3>🪜 Tahapan Rekrutmen</h3><div class="tag-list" id="tagStages"></div>
       <div class="add-row"><input id="addStage" placeholder="Tambah tahapan..." onkeydown="if(event.key==='Enter')addConfigItem('stages','addStage')"><button class="btn btn-sm btn-primary" onclick="addConfigItem('stages','addStage')">＋ Tambah</button></div>
     </div>
@@ -480,6 +510,7 @@ class="btn btn-outline btn-sm"
         <div><label for="fStatus">Status</label><select id="fStatus"></select></div>
         <div><label for="fExp">Experience</label><select id="fExp"><option>Freshgraduate</option><option>Middle</option><option>Pro</option><option>Expert</option></select></div>
         <div><label for="fPIC">PIC</label><select id="fPIC"></select></div>
+        <div><label for="fLowongan">Lowongan</label><select id="fLowongan"></select></div>
         <div><label for="fAT">AT</label><select id="fAT"><option>Iya</option><option>Tidak</option></select></div>
         <div class="full"><label for="fKet">Keterangan</label><textarea id="fKet" rows="3" placeholder="Catatan tambahan, hasil interview, dll."></textarea></div>
 <div class="full">
@@ -585,7 +616,8 @@ const DEFAULT_CONFIG={
   positions:['KPE','ELJ','SPE','MRP','SPP','PEF','TKO','PTR','API','PWS1','PWS2','PSA1','PSA2','OTI1','OTI2','JTI','KSI','POT','PBD','PRK','LII','DAP','PMU','PSI1','PUS','PEN','AKE','LPE','BHU','PPS','KEP','PSD','OSD','UMU','AKP','KEU1','TRE'],
   statuses:['Ditolak','Ongoing','Hold','Done','Mundur'],
   pics:['PNO','ESP','DSR'],
-  stages:['SDM','User','Psikotest','Kadiv User','Kadiv PSU','Direktur KAD','Direktur User','MCU','Offering']
+  stages:['SDM','User','Psikotest','Kadiv User','Kadiv PSU','Direktur KAD','Direktur User','MCU','Offering'],
+  lowongan:['LinkedIn','Disnakerja','Jobstreet']
 };
 let config={...DEFAULT_CONFIG};
 let candidates=[];
@@ -729,6 +761,68 @@ function renderDashboard(){
       <span class="breakdown-count"><span class="mini-bar"><div style="width:${pct}%"></div></span><b>${n}</b></span></div>`;
   }).join('')||'<p style="color:var(--muted);font-size:13px">-</p>';
 
+  // lowongan
+
+const byLowongan={};
+
+config.lowongan.forEach(
+  l=>byLowongan[l]=0
+);
+
+candidates.forEach(c=>{
+
+  if(c.lowongan){
+
+    byLowongan[c.lowongan] =
+      (byLowongan[c.lowongan]||0)+1;
+
+  }
+
+const maxLowongan=
+Math.max(
+  1,
+  ...Object.values(byLowongan)
+);
+
+document.getElementById(
+'lowonganBreakdown'
+).innerHTML =
+
+Object.entries(byLowongan)
+
+.sort((a,b)=>b[1]-a[1])
+
+.map(([name,count])=>{
+
+  const pct=
+    count/maxLowongan*100;
+
+  return `
+
+    <div class="breakdown-row">
+
+      <span class="breakdown-name">
+        ${name}
+      </span>
+
+      <span class="breakdown-count">
+
+        <span class="mini-bar">
+          <div style="width:${pct}%"></div>
+        </span>
+
+        <b>${count}</b>
+
+      </span>
+
+    </div>
+
+  `;
+
+}).join('');
+
+});
+
   // Attention
   const attention=candidates.filter(c=>
   c.status==='Ongoing' &&
@@ -869,6 +963,7 @@ function renderTable(){
         <td><div class="progress-wrap"><div class="stage-dots">${dots}</div><span class="progress-text">${p}%</span></div></td>
         <td>${esc(c.experience)}</td>
         <td>${esc(c.pic)}</td>
+        <td>${esc(c.lowongan||'-')}</td>
         <td>${c.at==='Iya'?'<span class="badge badge-success">Iya</span>':'<span class="badge badge-muted">Tidak</span>'}</td>
         <td>${cvLink}</td>
         <td style="text-align:right;white-space:nowrap">
@@ -997,7 +1092,7 @@ function appendStageNote(stage, checked){
 
 function populateFormSelects(){
   const fill=(id,arr)=>{document.getElementById(id).innerHTML=arr.map(v=>`<option>${esc(v)}</option>`).join('')};
-  fill('fPosisi',config.positions);fill('fStatus',config.statuses);fill('fPIC',config.pics);
+  fill('fPosisi',config.positions);fill('fStatus',config.statuses);fill('fPIC',config.pics);fill('fLowongan',config.lowongan);
   document.getElementById('fChecklist').innerHTML=config.stages.map(s=>`
   <label>
     <input 
@@ -1042,8 +1137,9 @@ function openEditModal(id){
   document.getElementById('fExp').value=c.experience||'Freshgraduate';
   document.getElementById('fPIC').value=c.pic||'';
   document.getElementById('fAT').value=c.at||'Tidak';
+  document.getElementById('fLowongan').value=c.lowongan || '';
   document.getElementById('fKet').value=c.keterangan||'';
-document.getElementById('fStageNotes').value=c.stageNotes||'';
+  document.getElementById('fStageNotes').value=c.stageNotes||'';
   document.getElementById('fCV').value='';
   document.getElementById('fCVInfo').textContent=c.cvName?'CV saat ini: '+c.cvName:'';
   document.querySelectorAll('#fChecklist input').forEach(cb=>cb.checked=!!(c.checklist&&c.checklist[cb.value]));
@@ -1140,10 +1236,11 @@ if(cvFile){
     posisi:document.getElementById('fPosisi').value,
     status:document.getElementById('fStatus').value,
     keterangan:document.getElementById('fKet').value,
-stageNotes:document.getElementById('fStageNotes').value,
+    stageNotes:document.getElementById('fStageNotes').value,
     experience:document.getElementById('fExp').value,
     pic:document.getElementById('fPIC').value,
     at:document.getElementById('fAT').value,
+    lowongan:document.getElementById('fLowongan').value,
     checklist,cvName,cvData,
     createdAt:editId?(candidates.find(x=>x.id===editId)?.createdAt||now):now,
     updatedAt:now
@@ -1244,8 +1341,8 @@ async function deleteCandidate(id){
 function exportCSV(){exportCSVData(candidates,'kandidat_'+today()+'.csv')}
 function exportCSVData(data,filename){
   const stageHeaders=config.stages;
-  const header=['ID','Nama','Tanggal Invitation','Universitas','Posisi','Status','Keterangan','Experience','PIC','AT',...stageHeaders,'CV Filename','Created At','Updated At'];
-  const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),c.cvName||'',c.createdAt,c.updatedAt]);
+  const header=['ID','Nama','Tanggal Invitation','Universitas','Posisi','Status','Keterangan','Experience','PIC','lowongan','AT',...stageHeaders,'stagenotes','CV Filename','Created At','Updated At'];
+  const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.lowongan || '',c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),c.stageNotes || '',c.cvName||'',c.createdAt,c.updatedAt]);
   let csv='\uFEFF'+header.map(h=>'"'+h+'"').join(';')+'\n';
   rows.forEach(r=>{csv+=r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(';')+'\n'});
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
@@ -1271,7 +1368,7 @@ async function handleSync(event){
       const id=g('ID')||uid();
       const existing=candidates.find(x=>x.id===id);
       if(existing)updated++;else count++;
-      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),status:g('Status'),keterangan:g('Keterangan'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
+      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:g('StageNotes'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
       await dbPut('candidates',candidate);
     }
     await loadCandidates();populateYearFilter();renderTable();
@@ -1290,7 +1387,7 @@ function parseCSVLine(line){
 
 // ==================== CONFIG PANEL ====================
 function renderConfig(){
-  ['positions','statuses','pics','stages'].forEach(key=>{
+  ['positions','statuses','pics','lowongan','stages'].forEach(key=>{
     const el=document.getElementById('tag'+key.charAt(0).toUpperCase()+key.slice(1));
     el.innerHTML=config[key].map((v,i)=>`<span class="tag">${esc(v)} <button onclick="removeConfigItem('${key}',${i})" title="Hapus">✕</button></span>`).join('')||'<span style="color:var(--muted);font-size:12px">Belum ada item.</span>';
   });
