@@ -833,7 +833,7 @@ Object.entries(byLowongan)
   const list=document.getElementById('attentionList');
   if(!attention.length){list.innerHTML='<p style="color:var(--muted);font-size:13px;text-align:center;padding:20px">✓ Tidak ada kandidat yang perlu perhatian khusus.</p>'}
   else{
-    list.innerHTML=attention.slice(0,10).map(c=>{
+    list.innerHTML=attention.slice(0,15).map(c=>{
       const d=daysSince(c.tanggalInvitation);
       const cls=STATUS_CLASS[c.status]||'badge-muted';
       return `<div class="breakdown-row" style="cursor:pointer" onclick="switchTab('candidates');setTimeout(()=>openViewModal('${c.id}'),200)">
