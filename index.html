@@ -192,6 +192,68 @@ tbody tr.selected{background:var(--primary-soft)}
 .empty-ic{font-size:42px;margin-bottom:10px;opacity:.4}
 
 /* DASHBOARD */
+
+.year-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+
+.year-card{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  background:var(--card);
+  box-shadow:var(--shadow-sm);
+  transition:.2s;
+}
+
+.year-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.year-title{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.year-total{
+  color:var(--primary);
+  font-weight:700;
+}
+
+.year-done{
+  color:var(--success);
+  font-weight:700;
+}
+
+.year-progress{
+  height:8px;
+  background:var(--muted-bg);
+  border-radius:20px;
+  margin-top:10px;
+  overflow:hidden;
+}
+
+.year-progress-fill{
+  height:100%;
+  background:
+    linear-gradient(
+      90deg,
+      var(--success),
+      #22c55e
+    );
+}
+
+.year-rate{
+  margin-top:8px;
+  font-size:12px;
+  color:var(--muted);
+}
+
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform var(--t),box-shadow var(--t)}
 .stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
@@ -302,7 +364,14 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
   <!-- =================== DASHBOARD =================== -->
   <div id="panelDashboard">
     <div class="stat-grid" id="statGrid"></div>
-    <div class="dash-grid">
+<div class="stat-grid">
+<div class="dash-card">
+  <h3>📅 Statistik Tahunan</h3>
+  <div id="yearlyBreakdown" class="year-grid">
+  </div>
+</div>
+</div>
+<div class="dash-grid">
       <div class="dash-card">
         <h3>🪜 Tahapan Rekrutmen <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(jumlah lolos per tahap)</span></h3>
         <div class="funnel" id="funnelChart"></div>
@@ -312,10 +381,11 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
         <div class="breakdown" id="statusBreakdown"></div>
       </div>
     </div>
+
     <div class="dash-grid">
 
   <div class="dash-card">
-    <h3>💼 Top Posisi Dilamar</h3>
+    <h3>💼 Posisi Dilamar</h3>
     <div class="breakdown" id="positionBreakdown"></div>
   </div>
 
@@ -323,14 +393,11 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
     <h3>👤 Beban PIC</h3>
     <div class="breakdown" id="picBreakdown"></div>
   </div>
-
   <div class="dash-card">
     <h3>📢 Sumber Lowongan</h3>
     <div class="breakdown" id="lowonganBreakdown"></div>
   </div>
-
 </div>
-
     <div class="dash-card">
       <h3>⏰ Perlu Perhatian <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(Ongoing > 30 hari)</span></h3>
       <div id="attentionList"></div>
@@ -697,6 +764,32 @@ function switchTab(tab){
   if(tab==='config')renderConfig();
 }
 
+function openStatusDashboard(status){
+
+    switchTab('candidates');
+
+    document.getElementById(
+      'filterStatus'
+    ).value = status;
+
+    currentPage = 0;
+
+    renderTable();
+
+}
+
+function openYearDashboard(year){
+
+    switchTab('candidates');
+
+    document.getElementById('filterYear').value = year;
+
+    currentPage = 0;
+
+    renderTable();
+
+}
+
 // ==================== DASHBOARD ====================
 function renderDashboard(){
   const total=candidates.length;
@@ -713,10 +806,18 @@ function renderDashboard(){
 
   document.getElementById('statGrid').innerHTML=`
     <div class="stat-card primary"><div class="stat-ic">👥</div><div class="stat-label">Total Kandidat</div><div class="stat-value">${total}</div><div class="stat-sub">Seluruh data tercatat</div></div>
-    <div class="stat-card info"><div class="stat-ic">⏳</div><div class="stat-label">Ongoing</div><div class="stat-value">${ongoing}</div><div class="stat-sub">Sedang dalam proses</div></div>
-    <div class="stat-card warning"><div class="stat-ic">⏸</div><div class="stat-label">Hold</div><div class="stat-value">${hold}</div><div class="stat-sub">Ditahan sementara</div></div>
-    <div class="stat-card success"><div class="stat-ic">✓</div><div class="stat-label">Done</div><div class="stat-value">${done}</div><div class="stat-sub">Selesai / diterima</div></div>
-    <div class="stat-card danger"><div class="stat-ic">✕</div><div class="stat-label">Ditolak</div><div class="stat-value">${ditolak}</div><div class="stat-sub">Tidak lolos</div></div>
+    <div class="stat-card info"
+     style="cursor:pointer"
+     onclick="openStatusDashboard('Ongoing')"><div class="stat-ic">⏳</div><div class="stat-label">Ongoing</div><div class="stat-value">${ongoing}</div><div class="stat-sub">Sedang dalam proses</div></div>
+    <div class="stat-card warning"
+     style="cursor:pointer"
+     onclick="openStatusDashboard('Hold')"><div class="stat-ic">⏸</div><div class="stat-label">Hold</div><div class="stat-value">${hold}</div><div class="stat-sub">Ditahan sementara</div></div>
+    <div class="stat-card success"
+     style="cursor:pointer"
+     onclick="openStatusDashboard('Done')"><div class="stat-ic">✓</div><div class="stat-label">Done</div><div class="stat-value">${done}</div><div class="stat-sub">Selesai / diterima</div></div>
+    <div class="stat-card danger"
+     style="cursor:pointer"
+     onclick="openStatusDashboard('Ditolak')"><div class="stat-ic">✕</div><div class="stat-label">Ditolak</div><div class="stat-value">${ditolak}</div><div class="stat-sub">Tidak lolos</div></div>
     <div class="stat-card primary"><div class="stat-ic">📈</div><div class="stat-label">Conversion</div><div class="stat-value">${conv}%</div><div class="stat-sub">Done / total</div></div>
     <div class="stat-card info"><div class="stat-ic">📅</div><div class="stat-label">Bulan Ini</div><div class="stat-value">${thisMonth}</div><div class="stat-sub">Invitation bulan ini</div></div>
   `;
@@ -824,6 +925,97 @@ Object.entries(byLowongan)
 
 });
 
+// tahunan
+
+const yearlyData = {};
+
+candidates.forEach(c=>{
+
+  if(!c.tanggalInvitation)
+    return;
+
+  const year =
+    new Date(
+      c.tanggalInvitation
+    ).getFullYear();
+
+  if(!yearlyData[year]){
+
+    yearlyData[year]={
+      total:0,
+      done:0
+    };
+
+  }
+
+  yearlyData[year].total++;
+
+  if(c.status==='Done'){
+    yearlyData[year].done++;
+  }
+
+});
+
+document.getElementById(
+'yearlyBreakdown'
+).innerHTML =
+
+Object.entries(yearlyData)
+
+.sort((a,b)=>b[0]-a[0])
+
+.map(([year,data])=>{
+
+  const rate =
+    data.total
+    ? Math.round(
+        data.done /
+        data.total * 100
+      )
+    : 0;
+
+  return `
+
+<div class="year-card"
+     style="cursor:pointer"
+     onclick="openYearDashboard('${year}')">
+    <div class="year-title">
+      📅 ${year}
+    </div>
+
+    <div>
+      Invitation :
+      <span class="year-total">
+        ${data.total}
+      </span>
+    </div>
+
+    <div>
+      Join :
+      <span class="year-done">
+        ${data.done}
+      </span>
+    </div>
+
+    <div class="year-rate">
+      Success Rate ${rate}%
+    </div>
+
+    <div class="year-progress">
+
+      <div
+        class="year-progress-fill"
+        style="width:${rate}%">
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+
+}).join('');
+
   // Attention
   const attention=candidates.filter(c=>
   c.status==='Ongoing' &&
@@ -845,6 +1037,7 @@ Object.entries(byLowongan)
 }
 
 let filterCollapsed = true;
+
 
 function toggleFilters(){
 
