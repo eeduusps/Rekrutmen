@@ -424,12 +424,12 @@ class="btn btn-outline btn-sm"
       onclick="toggleFilters()"
       id="filterToggleBtn"
     ">
-      🔎 Filter
+      🔎 Show Filter
     </h3>
 
   </div>
 
-  <div id="filterContent">
+  <div id="filterContent" style="display:none;">
       <div class="filters">
         <input type="text" class="search" placeholder="Cari nama, universitas, posisi, keterangan..." id="searchInput" oninput="renderTable()">
         <select id="filterStatus" onchange="renderTable()"><option value="">Semua Status</option></select>
