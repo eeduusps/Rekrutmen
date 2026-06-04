@@ -397,6 +397,13 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
     <h3>📢 Sumber Lowongan</h3>
     <div class="breakdown" id="lowonganBreakdown"></div>
   </div>
+<div class="dash-card">
+  <h3>📋 Kebutuhan Karyawan</h3>
+  <div
+    class="breakdown"
+    id="kebutuhanBreakdown">
+  </div>
+</div>
 </div>
     <div class="dash-card">
       <h3>⏰ Perlu Perhatian <span style="font-weight:500;font-size:11px;color:var(--muted-2)">(Ongoing > 30 hari)</span></h3>
@@ -1016,6 +1023,63 @@ Object.entries(yearlyData)
 
 }).join('');
 
+
+const byNeed = {};
+
+kebutuhanData.forEach(item=>{
+
+  byNeed[item.divisi] =
+    item.kebutuhan;
+
+});
+
+const maxNeed =
+Math.max(
+  1,
+  ...Object.values(byNeed)
+);
+
+document.getElementById(
+'kebutuhanBreakdown'
+).innerHTML =
+
+Object.entries(byNeed)
+
+.sort((a,b)=>b[1]-a[1])
+
+.map(([name,count])=>{
+
+  const pct =
+    count/maxNeed*100;
+
+  return `
+
+  <div class="breakdown-row">
+
+    <span class="breakdown-name">
+      ${name}
+    </span>
+
+    <span class="breakdown-count">
+
+      <span class="mini-bar">
+        <div
+          style="
+          width:${pct}%">
+        </div>
+      </span>
+
+      <b>${count}</b>
+
+    </span>
+
+  </div>
+
+  `;
+
+}).join('');
+
+
   // Attention
   const attention=candidates.filter(c=>
   c.status==='Ongoing' &&
@@ -1064,6 +1128,32 @@ function toggleFilters(){
   }
 }
 
+
+let kebutuhanData = [];
+async function loadKebutuhan(){
+
+  try{
+
+    const response =
+      await fetch(
+        './database/kebutuhan.json'
+      );
+
+    kebutuhanData =
+      await response.json();
+
+  }catch(err){
+
+    console.error(
+      'Gagal load kebutuhan',
+      err
+    );
+
+    kebutuhanData=[];
+
+  }
+
+}
 
 // ==================== TABLE ====================
 
@@ -1665,6 +1755,7 @@ document.addEventListener('keydown',e=>{
   await openDatabase();
   await loadConfig();
   await loadCandidates();
+  await loadKebutuhan();
   populateYearFilter();
   populateFilterSelects();
   renderTable();
