@@ -1,0 +1,22 @@
+[
+  {
+    "divisi":"PWS1",
+    "kebutuhan":5
+  },
+  {
+    "divisi":"PWS2",
+    "kebutuhan":4
+  },
+  {
+    "divisi":"OSD",
+    "kebutuhan":3
+  },
+  {
+    "divisi":"PRK",
+    "kebutuhan":8
+  },
+  {
+    "divisi":"PSD",
+    "kebutuhan":2
+  }
+]
