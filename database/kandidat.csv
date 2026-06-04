@@ -1,36 +1,74 @@
 ID;Nama;Tanggal Invitation;Universitas;Posisi;Status;Keterangan;Experience;PIC;Lowongan;AT;SDM;User;Psikotest;Kadiv User;Kadiv PSU;Direktur KAD;Direktur User;MCU;Offering;Stage Notes;CV Filename;Created At;Updated At
-mpm54pe42j32yf5;Muhammad Ardhian Saputra;2026-05-20;Undip;PSI1;Ongoing;IN PROGRESS;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.996Z;
-mpm54pe42z6t1ia;Ihza Dafa Maulidan;2026-05-18;UI;PUS;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.996Z;
-mpm54pe47rkkblf;Damar Dwiatmaka;2026-05-13;UI;PUS;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.996Z;
+mpz3on2lrvo345b;Ragata Anggada Bhakti;2026-06-04;;PUS;Mundur;Tidak hadir;Freshgraduate;PNO;LinkedIn;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-06-04T06:14:33.165Z;2026-06-04T06:14:33.165Z
+mpz3iuf1l7ftn0c;Alfredo Lorentiar Santonanda;2026-06-03;Binus;KSI;Ongoing;Psikotes;Middle;PNO;Disnakerja;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[SDM]
+- lanjut
+
+[User]
+- lanjut
+
+[Psikotest]
+- 05 Juni 2026";;2026-06-04T06:10:02.749Z;2026-06-04T06:10:02.749Z
+mpz3gn3joi8jc0r;Alexander  Rafael S;2026-06-04;;API;Ongoing;Minta reschedule;Freshgraduate;PNO;LinkedIn;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-06-04T06:08:19.951Z;2026-06-04T06:08:19.951Z
+mpz3cqfwm0zig4r;Helena Ho;2026-06-04;UI;PRK;Ongoing;Menunggu konfirmasi kandidat;Freshgraduate;PNO;Disnakerja;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[SDM]
+- ";;2026-06-04T06:05:17.660Z;2026-06-04T06:05:17.660Z
+mpm54pe42j32yf5;Muhammad Ardhian Saputra;2026-05-20;Undip;PSI1;Ongoing;IN PROGRESS;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[Psikotest]
+- ";;2026-05-26T04:34:01.996Z;2026-06-04T05:05:51.031Z
+mpm54pe42z6t1ia;Ihza Dafa Maulidan;2026-05-18;UI;PUS;Ditolak;Tidak Hadir;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;Tidak Hadir;;2026-05-26T04:34:01.996Z;2026-06-04T04:57:36.897Z
+mpm54pe47rkkblf;Damar Dwiatmaka;2026-05-13;UI;PUS;Mundur;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.996Z;2026-06-04T05:06:24.605Z
 mpm54pe4vfwx63v;Muhammad Ardhana Gusti;2026-05-23;Univ. Sebelas Maret;PSI1;Mundur;Mengundurkan diri;Middle;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.996Z;
-mpm54pe32bn6gb7;Irvan Syahputra;2026-05-12;;UMU;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;
-mpm54pe3fu2h6l4;Cyntya Naomi Binroos Siregar;2025-05-06;ITB;PRK;Ongoing;IN PROGRESS (Kanit);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;
-mpm54pe3h6pcgpz;Khalisha Qatrunnada;2026-05-06;UI;PRK;Ongoing;IN PROGRESS (Kadiv);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;
+mpm54pe32bn6gb7;Irvan Syahputra;2026-05-12;;UMU;Mundur;Tidak Hadir;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;2026-06-04T04:54:44.472Z
+mpm54pe3fu2h6l4;Cyntya Naomi Binroos Siregar;2025-05-06;ITB;PRK;Ditolak;IN PROGRESS (Kanit);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;2026-06-04T05:03:36.638Z
+mpm54pe3h6pcgpz;Khalisha Qatrunnada;2026-05-06;UI;PRK;Ongoing;IN PROGRESS (Kadiv) - Menunggu jadwal;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;2026-06-04T05:03:54.279Z
 mpm54pe3p6imkcq;Ariq Avriyandi;2026-04-28;UI;AKP;Ongoing;IN PROGRESS (Dir Keu);Freshgraduate;ESP;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;2026-05-26T04:34:31.368Z
 mpm54pe3sszpt5y;Berda Zayyinur Zidan;2026-05-11;UNS;PRK;Ditolak;Tidak dilanjut;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.995Z;
-mpm54pe2e0ukvjb;James Frederix Rolianto;2026-04-24;UI;OTI1;Ongoing;IN PROGRESS (Kadiv);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.994Z;2026-05-26T04:36:39.232Z
+mpm54pe2e0ukvjb;James Frederix Rolianto;2026-04-24;UI;OTI1;Ongoing;IN PROGRESS (Direktur);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;"[Kadiv User]
+- 
+
+[Kadiv PSU]
+- 
+
+[Direktur KAD]
+- 9 Juni 2026
+
+[Direktur User]
+- 9 Juni 2026";;2026-05-26T04:34:01.994Z;2026-06-04T04:05:24.480Z
 mpm54pe2jpz5x5x;Tsaquila Shafa Raissa M;2026-04-21;Unbraw;Magang;Done;Join;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;TRUE;;;2026-05-26T04:34:01.994Z;
 mpm54pe2nezolgr;Ilham Noor Rahman;2026-04-24;UI;PPU;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.994Z;
-mpm54pe2pnzyt7p;Fauzul Akmal Huda;2026-04-24;UGM;;Ongoing;IN PROGRESS (Dir Keu);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.994Z;2026-05-26T04:37:19.177Z
+mpm54pe2pnzyt7p;Fauzul Akmal Huda;2026-04-24;UGM;;Ongoing;MCU;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;"[Direktur KAD]
+- 
+
+[Direktur User]
+- 
+
+[MCU]
+- 04 Juni 2026";;2026-05-26T04:34:01.994Z;2026-06-04T03:56:40.811Z
 mo2qbbzaco7at3a;Rahayu Damayanti;2025-04-10;Unpad;PEF;Ditolak;Hasil Pak Gus Lanjut;;;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.960Z;2026-05-26T04:34:01.960Z
 mo2qbbzxg3uiqb4;Sascika Adityas;2025-02-03;Tilburg University;;;;;;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.953Z;2026-05-26T04:34:01.953Z
 mo2qbc01tfgsr3u;Ilham Bayu Prasetiyo;2025-02-17;Gundar;PSI1;Ditolak;Ditolak user Kanit OTI1 (Pindah ke PSI);;;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-05-26T04:34:01.952Z;2026-05-26T04:34:01.952Z
 mo87ax1zh0649i1;Astrid Andika Putri;2026-04-21;Undip;PEF;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax1zii8qawl;Nova Kristina Silitonga;2026-04-21;President University;AKP;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax1zmsa6hym;Tiffani Damayanti;2026-04-21;Trisakti University;AKP;Mundur;Tidak hadir interview;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-04-21T05:57:19.375Z
-mo87ax1zrrxxe2b;Shabrina Kitti Wulandari;2026-04-21;UI;AKP;Ongoing;IN PROGRESS (DIR KEU);Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-05-26T04:35:27.289Z
+mo87ax1zrrxxe2b;Shabrina Kitti Wulandari;2026-04-21;UI;AKP;Ditolak;IN PROGRESS (DIR KEU);Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;"[Direktur KAD]
+- Ditolak
+
+[Direktur User]
+- Ditolak";;2026-04-21T09:51:57.151Z;2026-06-04T03:59:28.512Z
 mo87ax206934mk8;Hazim Ismail;2026-04-21;Telkom;KSI;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax20avbzgqc;Rezzy Yuhand Pramudita;2026-04-21;Unbraw;OTI1;Ongoing;IN PROGRESS (Dir Keu);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-05-26T04:36:46.664Z
-mo87ax20b5xkfjq;Ihsan Harimurti;2026-04-21;Undip;OTI1;Ongoing;IN PROGRESS (Dir Keu);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-05-26T04:36:20.721Z
+mo87ax20b5xkfjq;Ihsan Harimurti;2026-04-21;Undip;OTI1;Ongoing;IN PROGRESS (Dir User) - Menunggu pembanding;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-06-04T06:06:57.821Z
 mo87ax20iqw4xn5;Naufaliando Yudo Kusumo;2026-02-09;ITS;OTI1;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax20o89yx8b;Rafly Athalla;2026-02-12;Telkom;OTI1;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax20wv4qzoz;Rafi Noval Hady;2026-04-21;UI;KSI;Ongoing;Menunggu pembanding;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-05-26T04:35:42.224Z
+mo87ax20wv4qzoz;Rafi Noval Hady;2026-04-21;UI;KSI;Hold;Menunggu pembanding;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-06-04T04:00:19.373Z
 mo87ax212m882q2;Deniarsyah Saputra;2026-04-21;SMK;UMU;Done;HIRED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-21T09:51:57.151Z;
 mo87ax21euoismo;Muhammad Faisal Ramadhan;2026-02-11;Telkom;PSI1;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax21j5vnlxq;Fio Mel Nathany;2026-04-21;UGM;PSI1;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax21q56xyys;Eryagiandi Septiawan;2026-04-21;Esa Unggul;JTI;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax21tcswwhy;Farrell Arrazi Alghiffari;2026-04-21;Unbraw;SPP;Ongoing;IN PROGRESS (Offering);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax21xagbt62;Rafi Hafidz Kurniantoko;2026-04-21;Telkom;JTI;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-05-26T04:35:35.209Z
+mo87ax21xagbt62;Rafi Hafidz Kurniantoko;2026-04-21;Telkom;JTI;Ditolak;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[SDM]
+- 
+
+[User]
+- Ditolak";;2026-04-21T09:51:57.151Z;2026-06-04T03:59:54.005Z
 mo87ax22ikr47lb;Mutiara Permata Sari;2026-04-21;Trisakti;AKP;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax22qgofuwi;Radhi M. A. Wicaksana;2026-04-21;ITB;SPP;Done;HIRED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-21T09:51:57.151Z;
 mo87ax22w30nk6m;Shyam Saefurrochman Nur Awaludin;2026-04-21;UGM;JTI;Ditolak;Ditolak Kanit JTI;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-04-21T05:58:39.047Z
@@ -39,11 +77,11 @@ mo87ax2347kg2kk;Kharen Abdul Jabar;2026-04-21;;PEF;Mundur;Tidak hadir interview;
 mo87ax2350g5vla;Farrell Arrazi Alghiffari;2026-04-21;Unbraw;PTR;Ongoing;IN PROGRESS (Kanit);Freshgraduate;PNO;;Tidak;TRUE;FALSE;TRUE;TRUE;FALSE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax23n3yvtbj;Handy Terestian;2026-04-21;Telkom;KSI;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax23qf7jkiw;Muhammad Kholid Hidayat;2026-04-21;Palcomtech;KSI;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax2475ur0i6;Zanif Choiru Nissa;2026-04-21;Poltek Malang;UMU;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
+mo87ax2475ur0i6;Zanif Choiru Nissa;2026-04-21;Poltek Malang;UMU;Ditolak;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-06-04T04:52:05.326Z
 mo87ax24jjcdra8;Ilham Adyansyah;2026-04-21;Telkom;UMU;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax24pkrrzgr;Muhammad Ajriel Rahayu;2026-04-21;UPI;PUS;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
+mo87ax24pkrrzgr;Muhammad Ajriel Rahayu;2026-04-21;UPI;PUS;Mundur;Tidak Hadir;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;Tidak Hadir;;2026-04-21T09:51:57.151Z;2026-06-04T04:58:30.477Z
 mo87ax24qipqob4;Fisky Febrian;2026-04-21;UI;PUS;Ongoing;IN PROGRESS (Kanit);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax24uqaz6xd;Shyam Saefurrochman;2026-04-21;UGM;UMU;Ongoing;IN PROGRESS (Kadiv);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
+mo87ax24uqaz6xd;Shyam Saefurrochman;2026-04-21;UGM;UMU;Ditolak;(Kadiv) - Ditolak;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-06-04T04:53:18.445Z
 mo87ax24yp916q6;Farrell Arrazi Alghiffari;2026-04-21;Unbraw;PUS;Ongoing;IN PROGRESS (Kanit);Freshgraduate;PNO;;Tidak;TRUE;FALSE;TRUE;TRUE;FALSE;TRUE;TRUE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax251m4z8ka;Gabriel Victio Shadday;2026-04-21;Unibraw;AKP;Ditolak;Tidak Hadir Psikotest;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax2583rw4t9;Wangsa Reisyah Fatahillah;2026-04-21;PNJ;UMU;Ditolak;Tidak Lanjut SDM;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
@@ -51,22 +89,35 @@ mo87ax25cnl86dq;Sofie Variantien Pamungkas;2026-04-21;UI;AKP;Mundur;Tidak Hadir 
 mo87ax25g6yz4a1;Tiffany Yunita Prayitno;2026-04-21;Petra Christian;AKP;Mundur;Tidak hadir interview;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-04-21T05:57:55.353Z
 mo87ax25v5dq5x7;Muhammad Putra Prokoso;2026-04-21;UNJ;AKP;Ditolak;REJECTED;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
 mo87ax25wymy38e;Febrian Eka Putri;2026-04-21;Univ Bengkulu;AKP;Ditolak;Ditolak Kadiv AKP;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-04-21T05:55:28.397Z
-mo87ax26iei5qkv;Luis Haryadi;2026-04-21;PGRI Jogja;UMU;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
+mo87ax26iei5qkv;Luis Haryadi;2026-04-21;PGRI Jogja;UMU;Ditolak;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[SDM]
+- 
+
+[User]
+- Ditolak";;2026-04-21T09:51:57.151Z;2026-06-04T04:53:34.247Z
 mo87ax26ke24t7j;Axel Graceto Purba;2026-04-21;Institute Teknologi DEL;UMU;Ditolak;Tidak Lanjut SDM;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax27e3qmt9l;Deden Lesmana;2026-04-21;Indraprasta Jakarta;UMU;Ongoing;IN PROGRESS (Kadiv);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo87ax27v64gnip;Ihsan;2026-04-21;Poltek Bandung;UMU;Ongoing;IN PROGRESS (SDM);Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;
-mo2qbc1x4ervgkb;Dinda Rustiani Kurniajaya;2026-04-21;Universitas Tarumanagara;AKP;Ongoing;Menunggu Jadwal Direksi;Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.381Z;2026-05-26T04:35:10.784Z
+mo87ax27e3qmt9l;Deden Lesmana;2026-04-21;Indraprasta Jakarta;UMU;Ongoing;IN PROGRESS (Kadiv) - Menunggu pembanding;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-21T09:51:57.151Z;2026-06-04T04:55:52.152Z
+mo87ax27v64gnip;Ihsan;2026-04-21;Poltek Bandung;UMU;Ditolak;Ditolak (User);Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[User]
+- Ditolak";;2026-04-21T09:51:57.151Z;2026-06-04T04:55:24.465Z
+mo2qbc1x4ervgkb;Dinda Rustiani Kurniajaya;2026-04-21;Universitas Tarumanagara;AKP;Ditolak;Menunggu Jadwal Direksi;Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;"[Direktur KAD]
+- Tidak dilanjut 
+
+[Direktur User]
+- Tidak dilanjut ";;2026-04-17T09:51:57.381Z;2026-06-04T03:58:27.601Z
 mo2qbc1wjrb1d1x;Mohammad Rizki Affandi;2026-02-11;Universitas;OTI1;Mundur;Tidak hadir Interview;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.380Z;
 mo2qbc1vkffwrsr;Ricardo;2026-02-10;Universitas;PSI1;Mundur;Tidak hadir interview;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.379Z;
 mo2qbc1uvpbrkjk;Wiweko Dwitya Anindito;2026-02-11;Universitas;OTI1;Mundur;Tidak Hadir Interview SDM;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.378Z;
 mo2qbc1slepxzl9;Permata Maulidhina Yuldi;2026-02-09;UI;SPP;Mundur;Tidak Hadir Interview;Pro;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.376Z;
 mo2qbc1slnor77s;Permata Maulidhina Yuldi;2026-02-09;UGM;SPP;Mundur;Mengundurkan diri;Freshgraduate;ESP;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.376Z;
-mo2qbc1r15gkvza;Muhammad Reza Setiady;2026-02-04;Trisakti;AKP;Ongoing;Re-schedule;Middle;ESP;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.375Z;2026-04-23T01:29:21.838Z
+mo2qbc1r15gkvza;Muhammad Reza Setiady;2026-02-04;Trisakti;AKP;Ditolak;Tidak Lulus;Middle;ESP;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[User]
+- 
+
+[Psikotest]
+- Tidak Lulus";;2026-04-17T09:51:57.375Z;2026-06-04T03:59:03.942Z
 mo2qbc1qc5x4017;Muhammad Hafidz Fadhila;2026-02-03;UI;SPP;Ditolak;Tidak Lanjut User;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.374Z;
 mo2qbc1qy3yfxaq;Rayhan Abrar;2026-02-03;IPB;SPP;Mundur;Mengundurkan diri;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.374Z;
 mo2qbc1pkk6t6pb;Muhammad Farhan;2025-12-16;ITS;SPP;Hold;Menunggu Pembanding - Kadiv PSU;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.373Z;
 mo2qbc1oy8537xf;Benedictus Satriyo Karuna Wicaksono;2025-12-03;Unbraw;SPP;Hold;Ditangguhkan Kadiv SDM dan Kadiv SMR;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.372Z;
-mo2qbc1nibimjma;Dhiyaulhaq Danish Prakoso;2025-11-20;UI;PTR;Ongoing;;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.371Z;
+mo2qbc1nibimjma;Dhiyaulhaq Danish Prakoso;2025-11-20;UI;API;Ongoing;Dialihkan ke API;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.371Z;2026-06-04T04:59:22.247Z
 mo2qbc1nqjabp86;Wisnu Fauzan Ramadian;2025-11-10;UNJ;PTR;Ongoing;Menunggu jadwal interview direksi;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;;;2026-04-17T09:51:57.371Z;
 mo2qbc1m6ex4r1h;Nadya Putri Lande;2025-12-15;Undip;SPP;Ditolak;Tidak dilanjut Kadiv SMR;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.370Z;
 mo2qbc1lcmswbcs;I Gusti Ngurah Rai K.D Sandhi;2026-01-05;ITB;PTR;Ditolak;Ditolak Kanit PTR;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.369Z;
@@ -75,24 +126,33 @@ mo2qbc1kzeqob8u;Nurhadi Satrio;2026-01-08;UI;SPP;Ditolak;Tidak dilanjut Kanit SP
 mo2qbc1j0lenyp5;Doeghell Adjie Pamungkas;2026-01-09;UI;AKP;Ditolak;Tidak dilanjut Kanit AKP;Middle;ESP;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.367Z;2026-04-23T01:29:39.229Z
 mo2qbc1jyyyiu1d;Anissa Alivia Putri;2025-10-29;Undip;PWS1;Hold;Dialihkan magang PEF;Freshgraduate;ESP;;Iya;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-17T09:51:57.367Z;
 mo2qbc1ij5jare3;Mutiara Permata Sari;2026-01-19;Trisakti;AKP;Ditolak;Tidak lulus psikotes;Middle;ESP;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.366Z;2026-04-21T10:17:17.151Z
-mo2qbc1hf63ncjx;Aldrian Raffi Wicaksono;2026-01-14;UI;PMU;Ongoing;Offering Tanggal 9;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.365Z;2026-05-26T04:36:53.984Z
+mo2qbc1hf63ncjx;Aldrian Raffi Wicaksono;2026-01-14;UI;PMU;Done;Offering Tanggal 9;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.365Z;2026-06-04T04:51:20.229Z
 mo2qbc1gj7p6r4j;Andreas Caventhana;2026-01-15;Unbraw;PMU;Ditolak;Tidak dilanjut SDM;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.364Z;
-mo2qbc1gkblwlen;Safira Raissa Rahmi;2026-01-15;UI;PMU;Ongoing;Menunggu jadwal interview kadiv user;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.364Z;2026-05-26T04:37:06.865Z
+mo2qbc1gkblwlen;Safira Raissa Rahmi;2026-01-15;UI;PMU;Ditolak;Menunggu jadwal interview kadiv user;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.364Z;2026-06-04T04:51:01.062Z
 mo2qbc1fvpcf7ez;Muhammad Mahdi;2026-01-22;UI;PMU;Mundur;Tidak hadir interview SDM;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.363Z;
 mo2qbc1e6umak51;Yoga Faerial Baskara;2026-01-13;The University of Melbourne;SPP;Mundur;Mengundurkan diri;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.362Z;
 mo2qbc1eq97jbbc;Dimas Naufal Djatmiko;2026-01-22;ITB;SPP;Ditolak;Tidak dilanjut Kanit SPP;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.362Z;
-mo2qbc1du5ipr4i;Teguh Saputra;2026-05-25;UI;SPP;Ongoing;Akan dijadwalkan direktur KAD;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.361Z;2026-05-25T07:02:21.964Z
+mo2qbc1du5ipr4i;Teguh Saputra;2026-05-25;UI;SPP;Ditolak;Ditolak (DIR KAD);Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;"[Direktur User]
+- 
+
+[Direktur KAD]
+- Ditolak";;2026-04-17T09:51:57.361Z;2026-06-04T04:56:33.264Z
 mo2qbc1c4o0cs36;Marzuq Adil Rosyad;2026-01-21;Undip;PTR;Ditolak;Ditolak kanit ptr;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.360Z;
 mo2qbc1b7hlkt8e;Muhammad Fadhil Risyad Lubis;2026-01-23;Newcastle University S2;SPP;Ditolak;Tidak Lulus Psikotest;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.359Z;
 mo2qbc1bg9egtqt;M. Nizar Taufiqurrahman;2026-01-22;Unair;SPP;Ditolak;Tidak dilanjut Kanit SPP;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.359Z;
-mo2qbc1a5d5psc7;Muhammad Bayanudin Marfu;2026-05-25;Unbraw;PTR;Ongoing;Done;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.358Z;2026-05-25T07:01:29.380Z
+mo2qbc1a5d5psc7;Muhammad Bayanudin Marfu;2026-05-25;Unbraw;PTR;Done;Done;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.358Z;2026-06-04T04:58:41.612Z
 mo2qbc19cl7ysnh;Gavan Rizqullah Adhwa Kusumo;2026-01-26;UI;PTR;Ditolak;Tidak dilanjut Kanit PTR;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.357Z;
 mo2qbc19wnsjucs;Mochammad Rafi Bayu Putra;2025-10-25;Undip;PTR;Ditolak;Tidak Lanjut User;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.357Z;
 mo2qbc18mv71thv;Yuswikha Astafirdha Fisyuhuri;2025-09-17;IPB;Magang;Done;Join September;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.356Z;
 mo2qbc17gne696z;Regi Aprilian;2025-10-08;Undip;PWS1;Done;Menunggu Jadwal Dir;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.355Z;
 mo2qbc165yx8q79;Rafli Aliefdiputra;2025-10-07;Unair;PSA1;Ditolak;Ditolak User;Middle;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.354Z;
-mo2qbc1695w1hnc;Fungdyawan Sulianto;2025-10-30;Binus;PSA1;Ongoing;Menunggu Psikotest;Pro;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.354Z;
-mo2qbc15qzw39tu;Anissa Alivia Putri;2025-10-29;Undip;;Ongoing;Menunggu Penempatan Posisis Magang;Freshgraduate;ESP;;Iya;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.353Z;2026-05-26T04:36:01.881Z
+mo2qbc1695w1hnc;Fungdyawan Sulianto;2025-10-30;Binus;PSA1;Ditolak;Menunggu Psikotest;Pro;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;"[Psikotest]
+- ";;2026-04-17T09:51:57.354Z;2026-06-04T05:04:18.906Z
+mo2qbc15qzw39tu;Anissa Alivia Putri;2025-10-29;Undip;;Done;Menunggu Penempatan Posisis Magang;Freshgraduate;ESP;;Iya;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;"[User]
+- 
+
+[Kadiv User]
+- ";;2026-04-17T09:51:57.353Z;2026-06-04T03:57:05.135Z
 mo2qbc14lbi7sp1;Muhammad Gesa Azana Prahasa;2025-08-01;UGM;PSA1;Ditolak;Ditolak Kadiv User;Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.352Z;
 mo2qbc14zysefi0;Raja Syah Holoan Siregar;2025-07-06;UB;PEF;Hold;Menunggu Pembanding dari Dir;Freshgraduate;PNO;;Iya;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-17T09:51:57.352Z;
 mo2qbc13uj65ddu;Jeremia Halomoan Maralus;2025-08-26;UI;PWS1;Ditolak;Ditolak Dir EES;Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;;;2026-04-17T09:51:57.351Z;
@@ -106,7 +166,8 @@ mo2qbc0zxjgaf5h;Harun Sahat Maruli;2025-08-22;UB;PSA1;Hold;Dihold direksi;Middle
 mo2qbc0y75v2wnn;Muhammad Alif Putra Dafi;2025-07-11;Telkom;OTI1;Done;Join 22 September;Middle;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;;;2026-04-17T09:51:57.346Z;
 mo2qbc0x5s43tor;Teuku Mohammad Farhansyah;2025-10-14;Binus;Magang;Done;Join 31 Oktober 2025;Freshgraduate;PNO;;Iya;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.345Z;
 mo2qbc0x9h97xcw;Mas Muhammad Azriwinata;2025-09-16;Telkom;PMU;Ditolak;Ditolak User;Freshgraduate;PNO;;Iya;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.345Z;
-mo2qbc0w2fo6yf5;Didan Hasan Murtaqi;2025-07-13;Undip;OTI1;Ditolak;Tidak Lanjut Kanit;Freshgraduate;ESP;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.344Z;
+mo2qbc0w2fo6yf5;Didan Hasan Murtaqi;2025-07-13;Undip;UMU;Ditolak;Tidak Lanjut Kanit;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;"[Kadiv User]
+- Ditolak";;2026-04-17T09:51:57.344Z;2026-06-04T06:13:08.049Z
 mo2qbc0wg18miji;Panji Gumilang Hatami;2025-07-04;Trisakti;PWS1;Ditolak;Tidak Lanjut User;Freshgraduate;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.344Z;
 mo2qbc0var0ab1n;Shafira Akmala;2025-07-21;Undip;PSA1;Ditolak;Tidak Lanjut SDM;Freshgraduate;ESP;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.343Z;
 mo2qbc0u8swa93f;Yusril Nur Amin;2025-10-21;UGM;PSA1;Ditolak;Ditolak User;Middle;PNO;;Tidak;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.342Z;
@@ -115,8 +176,8 @@ mo2qbc0tp5c4xb1;Abdurrahman Adz Drizkri;2025-08-22;UI;PSA1;Mundur;Mundur;Middle;
 mo2qbc0s388g6qr;Sa'idah Aulia Putri;2025-08-13;Binus;Magang;Ditolak;Tidak Lanjut SDM;Freshgraduate;PNO;;Tidak;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.340Z;
 mo2qbc0s8k2onsh;Muhammad Khusnan Gufron;2025-07-23;Undip;PWS1;Mundur;Tidak hadir interview SDM;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.340Z;
 mo2qbc0r80c20tt;Ananda Yoga Pramudya;2025-07-23;Undip;PWS1;Ditolak;Tidak Lulus Psikotest;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.339Z;
-mo2qbc0qagjr5pl;Muhammad Reza Prakoso;2025-07-25;Universitas;PSA1;Ongoing;Interview SDM & User;Middle;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.338Z;
-mo2qbc0qawg37gg;Ryan Farezi;2025-07-24;Unbraw;PWS1;Ongoing;Interview SDM & User;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.338Z;
+mo2qbc0qagjr5pl;Muhammad Reza Prakoso;2025-07-25;Universitas;PSA1;Ditolak;Interview SDM & User;Middle;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.338Z;2026-06-04T05:06:10.061Z
+mo2qbc0qawg37gg;Ryan Farezi;2025-07-24;Unbraw;PWS1;Ditolak;Interview SDM & User;Freshgraduate;PNO;;Tidak;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.338Z;2026-06-04T04:56:51.728Z
 mo2qbc0p7g5xlee;Shadqi Marjan Sadiya;2025-07-04;UI;OTI1;Ditolak;Tidak Lanjut Kadiv;Freshgraduate;PNO;;Iya;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.337Z;
 mo2qbc0pndy09kz;Nenden Maulidia;2025-02-20;IPB;PUS;Hold;;Freshgraduate;PNO;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;;;2026-04-17T09:51:57.337Z;
 mo2qbc0oziyg6gq;Rizky Ferdian Prasetyo;2025-02-25;Telkom;OTI1;Ditolak;Tidak Lanjut Kadiv User;Freshgraduate;ESP;;Tidak;TRUE;TRUE;TRUE;TRUE;TRUE;FALSE;FALSE;FALSE;FALSE;;;2026-04-17T09:51:57.336Z;
