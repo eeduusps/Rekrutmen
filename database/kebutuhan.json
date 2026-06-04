@@ -1,22 +1,42 @@
 [
   {
-    "divisi":"PWS1",
-    "kebutuhan":5
+    "divisi":"PSI",
+    "kebutuhan":2
   },
   {
-    "divisi":"PWS2",
-    "kebutuhan":4
+    "divisi":"PUS",
+    "kebutuhan":1
   },
   {
-    "divisi":"OSD",
-    "kebutuhan":3
+    "divisi":"PTR",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"API",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"UMU",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"OTI1",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"KSI",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"JTI",
+    "kebutuhan":1
+  },
+  {
+    "divisi":"KSI",
+    "kebutuhan":1
   },
   {
     "divisi":"PRK",
-    "kebutuhan":8
-  },
-  {
-    "divisi":"PSD",
-    "kebutuhan":2
+    "kebutuhan":1
   }
 ]
