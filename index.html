@@ -1812,9 +1812,11 @@ const separator =
     : ",";
 
 // ambil header
-const rawHeaders = lines[0]
-  .split(separator)
-  .map(h => h.trim());
+const rawHeaders =
+ parseCSVLine(lines[0])
+ .map(h =>
+   h.trim().replace(/^\uFEFF/,'')
+ );
 
 // mapping header CSV → sistem HTML
 const headerMap = {
@@ -1910,64 +1912,64 @@ config.stages.forEach(stage=>{
 
 function generateCSV(){
 
-  const stageHeaders = config.stages;
+ const stageHeaders = config.stages;
 
-  const header = [
-    'ID',
-    'Nama',
-    'Tanggal Invitation',
-    'Universitas',
-    'Posisi',
-    'Status',
-    'Keterangan',
-    'Experience',
-    'PIC',
-    'Lowongan',
-    'AT',
-    ...config.stages,
-    'Stage Notes',
-    'CV Filename',
-    'Created At',
-    'Updated At'
-  ];
+ const header = [
+  'ID',
+  'Nama',
+  'Tanggal Invitation',
+  'Universitas',
+  'Posisi',
+  'Status',
+  'Keterangan',
+  'Experience',
+  'PIC',
+  'Lowongan',
+  'AT',
+  ...config.stages,
+  'Stage Notes',
+  'CV Filename',
+  'Created At',
+  'Updated At'
+ ];
 
-  const rows = candidates.map(c=>[
-    c.id,
-    c.nama,
-    c.tanggalInvitation,
-    c.universitas,
-    c.posisi,
-    c.status,
-    c.keterangan || '',
-    c.experience,
-    c.pic,
-    c.lowongan || '',
-    c.at,
-    ...stageHeaders.map(
-      s => c.checklist && c.checklist[s]
-        ? 'true'
-        : 'false'
-    ),
-    c.stageNotes || '',
-    c.cvName || '',
-    c.createdAt,
-    c.updatedAt
-  ]);
+ const rows = candidates.map(c=>[
+  c.id,
+  c.nama,
+  c.tanggalInvitation,
+  c.universitas,
+  c.posisi,
+  c.status,
+  (c.keterangan||'').replace(/"/g,'""'),
+  c.experience,
+  c.pic,
+  c.lowongan || '',
+  c.at,
+  ...stageHeaders.map(
+   s=>c.checklist&&c.checklist[s]
+    ? 'true'
+    : 'false'
+  ),
+  c.stageNotes || '',
+  c.cvName || '',
+  c.createdAt,
+  c.updatedAt
+ ]);
 
-  let csv =
-    '\uFEFF' +
-    header.map(h=>`"${h}"`).join(';') +
-    '\n';
+ let csv =
+  '\uFEFF' +
+  header.map(h=>'"'+h+'"').join(';') +
+  '\n';
 
-  rows.forEach(r=>{
-    csv +=
-      r.map(v =>
-        `"${String(v||'').replace(/"/g,'""')}"`
-      ).join(';')
-      + '\n';
-  });
+ rows.forEach(r=>{
+  csv +=
+   r.map(v=>
+    '"'+String(v||'').replace(/"/g,'""')+'"'
+   ).join(';')
+   + '\n';
+ });
 
-  return csv;
+ return csv;
 }
 
 async function saveToCloud(){
