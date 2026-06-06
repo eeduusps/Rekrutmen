@@ -1974,6 +1974,15 @@ function generateCSV(){
 
 async function saveToCloud(){
 
+  const confirmSave = confirm(
+    "Apakah Anda yakin akan menyimpan data ke Cloud?\n\nData yang ada di Google Drive akan ditimpa dengan data terbaru."
+  );
+
+  if(!confirmSave){
+    return;
+  }
+
+
   try{
 
     const csv = generateCSV();
@@ -1991,7 +2000,7 @@ async function saveToCloud(){
       await response.text();
 
     notify(
-      "Data berhasil disimpan ke Cloud",
+      "☁ Data berhasil disimpan ke Cloud",
       "success"
     );
 
@@ -2000,7 +2009,7 @@ async function saveToCloud(){
     console.error(err);
 
     notify(
-      "Gagal save ke cloud",
+      "❌ Gagal save ke cloud",
       "error"
     );
 
