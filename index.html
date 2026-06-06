@@ -502,15 +502,113 @@ kbd { background:var(--muted-bg); border:1px solid var(--border); border-radius:
 @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
 
 /* ============= RESPONSIVE ============= */
+/* hide mobile menu button on desktop */
+#mobileMenuBtn { display:none; }
+
 @media(max-width:880px) {
   .app { grid-template-columns: 1fr; }
-  .sidebar { position:fixed; left:0; top:0; width:248px; transform:translateX(-100%); }
+  .sidebar {
+    position:fixed; left:0; top:0; bottom:0; width:84vw; max-width:300px;
+    transform:translateX(-100%); z-index:120;
+    box-shadow: 0 20px 50px rgba(15,23,42,.25);
+    transition: transform .22s ease;
+  }
   .sidebar.open { transform:translateX(0); }
+  /* backdrop when sidebar is open */
+  .sidebar.open::after {
+    content:''; position:fixed; inset:0; left:100%;
+    width:100vw; height:100vh; background:rgba(15,23,42,.45);
+    z-index:-1; backdrop-filter: blur(2px);
+  }
+  /* keep collapsed labels visible on mobile drawer */
+  .app.sidebar-collapsed { grid-template-columns: 1fr; }
+  .app.sidebar-collapsed .logo-text,
+  .app.sidebar-collapsed .nav-label,
+  .app.sidebar-collapsed .nav-badge,
+  .app.sidebar-collapsed .nav-section-label,
+  .app.sidebar-collapsed .sidebar-foot .foot-text { display:initial; }
+  .app.sidebar-collapsed .nav-item { justify-content:flex-start; padding:10px 12px; }
+  .app.sidebar-collapsed .sidebar-head { justify-content:space-between; padding:18px 16px; }
+
+  #mobileMenuBtn { display:inline-flex; }
+
+  /* topbar — wrap and shrink */
+  .topbar { padding:10px 12px; gap:8px; flex-wrap:wrap; }
+  .topbar-title { font-size:15px; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .global-search { order:10; flex-basis:100%; max-width:none; }
+  .global-search input { font-size:16px; } /* prevents iOS zoom */
+
+  /* main spacing */
+  .main { padding:14px 12px 110px; }
+
+  /* forms / filters */
   .form-grid { grid-template-columns:1fr; }
-  .filters input, .filters select { width:100%; }
-  .count { margin-left:0; }
-  .detail-grid { grid-template-columns:1fr; }
-  .main { padding:14px 14px 100px; }
+  .filters { gap:8px; }
+  .filters input, .filters select { width:100%; min-width:0; font-size:16px; padding:10px 12px; }
+  .filters .search { min-width:0; }
+  input, select, textarea { font-size:16px; padding:10px 12px; }
+  .count { margin-left:0; width:100%; }
+
+  /* toolbar */
+  .toolbar { padding:12px; }
+  .toolbar-head { flex-wrap:wrap; gap:8px; }
+  .btn-group { width:100%; }
+  .btn { padding:9px 12px; }
+  .btn-sm { padding:7px 10px; }
+
+  /* tables — horizontal scroll with hint, taller rows for touch */
+  .table-wrap { max-height:none; -webkit-overflow-scrolling:touch; border-radius:12px; }
+  table { font-size:13px; }
+  th, td { padding:10px 10px; }
+  th { font-size:11px; }
+
+  /* dashboard cards */
+  .stat-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+  .stat-card { padding:14px; }
+  .stat-value { font-size:22px; }
+  .year-grid { grid-template-columns:1fr; }
+  .dash-card { padding:14px; }
+  .funnel-label { width:96px; font-size:11.5px; }
+
+  /* detail view */
+  .detail-grid { grid-template-columns:1fr; gap:4px 0; }
+  .detail-grid > div:nth-child(odd) { padding-top:10px; }
+  .stage-timeline { gap:6px; }
+  .stage-step { min-width:60px; }
+
+  /* modal — fill screen on phones, sticky header/footer */
+  .modal-overlay { padding:0; align-items:stretch; }
+  .modal, .modal.modal-sm, .modal.modal-lg {
+    max-width:100%; width:100%; max-height:100vh; min-height:100vh;
+    border-radius:0; animation:fadeIn .2s ease;
+  }
+  .modal-header, .modal-footer { padding:14px 16px; }
+  .modal-body { padding:16px; }
+  .modal-footer { flex-wrap:wrap; }
+  .modal-footer .btn { flex:1 1 auto; justify-content:center; }
+
+  /* checklist & tags compact */
+  .checklist-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .add-row { flex-wrap:wrap; }
+  .add-row input { max-width:none; flex:1 1 100%; }
+
+  /* FAB — smaller and out of bottom-nav area */
+  .fab { width:52px; height:52px; right:16px; bottom:16px; font-size:26px; }
+  .fab-label { display:none; }
+
+  /* toasts full-width */
+  .notif-container { left:10px; right:10px; top:10px; max-width:none; }
+
+  /* pagination wrap */
+  .pagination { flex-wrap:wrap; gap:6px; }
+}
+
+@media(max-width:480px) {
+  .stat-grid { grid-template-columns:1fr; }
+  .checklist-grid { grid-template-columns:1fr; }
+  .topbar-title { font-size:14px; }
+  .chip { padding:5px 10px; font-size:12px; }
+  th, td { padding:9px 8px; }
 }
 
 @media print {
@@ -521,6 +619,13 @@ kbd { background:var(--muted-bg); border:1px solid var(--border); border-radius:
   .modal-overlay { position:static; background:none; padding:0; backdrop-filter:none; }
   .modal { box-shadow:none; max-height:none; max-width:100%; }
 }
+
+.topbar-actions { display:flex; gap:6px; align-items:center; }
+@media(max-width:880px){
+  .topbar { flex-wrap:wrap; }
+  .global-search { order:10; flex:1 1 auto; }
+  .topbar-actions { order:11; flex:0 0 auto; }
+}
 </style>
 </head>
 <body>
@@ -530,11 +635,11 @@ kbd { background:var(--muted-bg); border:1px solid var(--border); border-radius:
   <!-- =================== SIDEBAR =================== -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-head">
-      <span class="logo-box">⌘</span>
       <div class="logo-text">
         <span class="logo-main">KSEI</span>
         <span class="logo-sub">Recruitment Database</span>
       </div>
+      <button class="btn btn-ghost btn-icon" onclick="toggleSidebar()" title="Toggle sidebar" aria-label="Toggle sidebar" style="margin-left:auto">☰</button>
     </div>
 
     <nav class="sidebar-nav">
@@ -569,22 +674,22 @@ kbd { background:var(--muted-bg); border:1px solid var(--border); border-radius:
       <div class="foot-row foot-text">
         <span>🕒</span><span id="lastUpdateInfo">Belum ada update</span>
       </div>
-      <div class="foot-actions">
-        <button class="btn btn-ghost btn-icon" onclick="toggleSidebar()" title="Toggle sidebar">☰</button>
-        <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">🌙</button>
-        <button class="btn btn-ghost btn-icon" onclick="openHelp()" title="Bantuan & Shortcut">?</button>
-      </div>
+
     </div>
   </aside>
 
   <!-- =================== MAIN AREA =================== -->
   <div class="main-area">
     <header class="topbar">
-      <button class="btn btn-ghost btn-icon" onclick="toggleSidebar()" title="Menu" style="display:none" id="mobileMenuBtn">☰</button>
+      <button class="btn btn-ghost btn-icon" id="mobileMenuBtn" onclick="toggleSidebar()" title="Menu" aria-label="Menu">☰</button>
       <div class="topbar-title" id="topbarTitle">📊 Dashboard</div>
       <div class="topbar-spacer"></div>
       <div class="global-search">
         <input type="text" id="globalSearch" placeholder="Pencarian cepat (/) ..." oninput="globalSearchHandler()">
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-icon" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">🌙</button>
+        <button class="btn btn-ghost btn-icon" onclick="openHelp()" title="Bantuan & Shortcut">?</button>
       </div>
     </header>
 
@@ -2055,6 +2160,27 @@ document.addEventListener('keydown', e => {
 })();
 </script>
 
+
+
+<script>
+/* Mobile sidebar UX: close on outside tap & on Escape */
+(function(){
+  document.addEventListener('click', function(e){
+    var sb = document.getElementById('sidebar');
+    var btn = document.getElementById('mobileMenuBtn');
+    if(!sb || !sb.classList.contains('open')) return;
+    if(window.innerWidth > 880) return;
+    if(sb.contains(e.target) || (btn && btn.contains(e.target))) return;
+    sb.classList.remove('open');
+  }, true);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      var sb = document.getElementById('sidebar');
+      if(sb) sb.classList.remove('open');
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
