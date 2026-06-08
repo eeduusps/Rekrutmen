@@ -1974,16 +1974,27 @@ function generateCSV(){
 
 async function saveToCloud(){
 
-  const confirmSave = confirm(
-    "Apakah Anda yakin akan menyimpan data ke Cloud?\n\nData yang ada di Google Drive akan ditimpa dengan data terbaru."
-  );
+// ambil password dari security.json
+const securityResponse =
+  await fetch("./config/security.json");
 
-  if(!confirmSave){
-    return;
-  }
+const security =
+  await securityResponse.json();
 
+// input password user
+const pass = prompt(
+  "Masukkan password Save:"
+);
 
-  try{
+// cek password
+if(
+  pass !== security.syncPassword
+){
+  alert("Password salah!");
+  return;
+}
+
+  try{ 
 
     const csv = generateCSV();
 
