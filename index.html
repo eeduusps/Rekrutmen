@@ -1799,6 +1799,8 @@ if(
     }
 
     const csvText = await response.text();
+// bersihkan database lokal terlebih dahulu
+await dbClear('candidates');
 
 const lines = csvText
   .trim()
@@ -1996,6 +1998,14 @@ if(
 
   try{ 
 
+
+const confirmSave = confirm(
+  "Apakah Anda yakin akan melakukan Save To Cloud?\nPastikan data sudah benar."
+);
+
+if(!confirmSave){
+  return;
+}
     const csv = generateCSV();
 
     const response =
