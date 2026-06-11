@@ -1643,7 +1643,8 @@ const header=[
  'Created At',
  'Updated At'
 ];
-  const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.lowongan || '',c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),c.stageNotes || '',c.cvName||'',c.createdAt,c.updatedAt]);
+  const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.lowongan || '',c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),(c.stageNotes || '')
+  .replace(/\r?\n/g,'__NL__'),c.cvName||'',c.createdAt,c.updatedAt]);
   let csv='\uFEFF'+header.map(h=>'"'+h+'"').join(';')+'\n';
   rows.forEach(r=>{csv+=r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(';')+'\n'});
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
@@ -1669,7 +1670,9 @@ async function handleSync(event){
       const id=g('ID')||uid();
       const existing=candidates.find(x=>x.id===id);
       if(existing)updated++;else count++;
-      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:g('Stage Notes'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
+      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:
+ (g('Stage Notes') || '')
+  .replace(/__NL__/g,'\n'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
       await dbPut('candidates',candidate);
     }
     await loadCandidates();populateYearFilter();renderTable();
@@ -1847,14 +1850,19 @@ const data = lines
 
     let obj = {};
 
-    rawHeaders.forEach((header, i) => {
+   rawHeaders.forEach((header, i) => {
 
-      const key =
-        headerMap[header] || header;
+  const key =
+    headerMap[header] || header;
 
-      obj[key] = cols[i] || "";
+  obj[key] = cols[i] || "";
 
-    });
+  if(key === "stageNotes"){
+    obj[key] =
+      obj[key].replace(/__NL__/g,"\n");
+  }
+
+});
 
     // checklist recruitment
     obj.checklist = {};
@@ -1952,7 +1960,8 @@ function generateCSV(){
     ? 'true'
     : 'false'
   ),
-  c.stageNotes || '',
+  (c.stageNotes || '')
+  .replace(/\r?\n/g,'__NL__'),
   c.cvName || '',
   c.createdAt,
   c.updatedAt
