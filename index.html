@@ -336,6 +336,7 @@ kbd{background:var(--muted-bg);border:1px solid var(--border);border-radius:4px;
   .modal{box-shadow:none;max-height:none;max-width:100%}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -520,14 +521,23 @@ class="btn btn-outline btn-sm"
 
   <!-- =================== CONFIG =================== -->
 <div id="panelConfig" style="display:none">
-<div class="config-section"><h3>💼 Database Option</h3>
-<button class="btn btn-outline" onclick="syncCSV()" title="Import CSV (merge)">🔄 Sync Manual</button>
-    <input type="file" id="syncFile" accept=".csv" style="display:none" onchange="handleSync(event)">
-    <button class="btn btn-outline" onclick="exportCSV()" title="Export CSV">💾 Save to Local</button> <button class="btn btn-outline"
-onclick="saveToCloud()">
-☁ Save To Cloud
-</button>
-<button class="btn btn-outline" onclick="autoSyncCSV()">🔐Auto Sync</button></div>
+<div class="config-section">
+      <h3>🗂 Database &amp; Sinkronisasi</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">
+        Impor/ekspor menggunakan format <b>Spreadsheet (.xlsx)</b>. Sinkronisasi ke cloud
+        bersifat <b>upsert</b> berdasarkan kolom <b>ID</b> — data lama tidak akan tertimpa.
+      </p>
+      <div class="btn-group" style="flex-wrap:wrap;gap:8px">
+        <button class="btn btn-outline" onclick="importSpreadsheet()" title="Impor dari file .xlsx (merge by ID)">📥 Import Spreadsheet</button>
+        <input type="file" id="syncFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleSpreadsheetImport(event)">
+        <button class="btn btn-outline" onclick="exportSpreadsheet()" title="Ekspor ke file .xlsx">📤 Export Spreadsheet</button>
+        <button class="btn btn-outline" onclick="pullFromCloud()" title="Tarik data terbaru dari Google Sheets (merge)">⬇ Sync from Cloud</button>
+        <button class="btn btn-primary" onclick="pushToCloud()" title="Kirim perubahan ke Google Sheets (upsert)">☁ Save to Cloud</button>
+        <button class="btn btn-outline" onclick="toggleAutoSync()" id="autoSyncBtn" title="Aktifkan auto-sync periodik">🔁 Auto-Sync: OFF</button>
+       <button class="btn btn-outline" onclick="clearSyncPassword()" title="Hapus password Cloud Sync yang tersimpan di sesi ini">🔑 Reset Password</button>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted)" id="syncStatus">Belum pernah sinkron.</div>
+    </div>
 
     <div class="config-section"><h3>💼 Posisi Pekerjaan</h3><div class="tag-list" id="tagPositions"></div>
       <div class="add-row"><input id="addPosition" placeholder="Tambah posisi..." onkeydown="if(event.key==='Enter')addConfigItem('positions','addPosition')"><button class="btn btn-sm btn-primary" onclick="addConfigItem('positions','addPosition')">＋ Tambah</button></div>
@@ -1339,7 +1349,14 @@ async function bulkDelete(){
 }
 function bulkExport(){
   const subset=candidates.filter(c=>selectedIds.has(c.id));
-  exportCSVData(subset,'kandidat_terpilih_'+today()+'.csv');
+  if(typeof XLSX==='undefined'){notify('Library SheetJS belum termuat.','error');return;}
+  const headers=spreadsheetHeaders();
+  const rows=subset.map(candidateToRow);
+  const ws=XLSX.utils.json_to_sheet(rows,{header:headers});
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Kandidat');
+  XLSX.writeFile(wb,'kandidat_terpilih_'+today()+'.xlsx');
+  notify('Diekspor: '+rows.length+' kandidat terpilih.','success');
 }
 
 // ==================== CHECKLIST TOGGLE ====================
@@ -1480,35 +1497,14 @@ async function saveCandidate(){
   const now=new Date().toISOString();
   const checklist={};
   document.querySelectorAll('#fChecklist input').forEach(cb=>{if(cb.checked)checklist[cb.value]=true});
- let cvName='',cvData=null;
-let photoName='',photoData=null;
+  let cvName='',cvData=null,photoName='',photoData=null;
   const cvFile=document.getElementById('fCV').files[0];
-const photoFile=document.getElementById('fPhoto').files[0];
-  if(cvFile){cvName=cvFile.name;cvData=await readFileAsBase64(cvFile)}
-if(photoFile){
-  photoName = photoFile.name;
-  photoData = await readFileAsBase64(photoFile);
-} else if(editId){
-  const ex = candidates.find(x => x.id === editId);
-
-  if(ex){
-    photoName = ex.photoName || '';
-    photoData = ex.photoData || null;
-  }
-}
-
-if(cvFile){
-  cvName = cvFile.name;
-  cvData = await readFileAsBase64(cvFile);
-} else if(editId){
-  const ex = candidates.find(x => x.id === editId);
-
-  if(ex){
-    cvName = ex.cvName || '';
-    cvData = ex.cvData || null;
-  }
-}
-  else if(editId){const ex=candidates.find(x=>x.id===editId);if(ex){cvName=ex.cvName||'';cvData=ex.cvData||null}}
+  const photoFile=document.getElementById('fPhoto').files[0];
+  const existing=editId?candidates.find(x=>x.id===editId):null;
+  if(photoFile){photoName=photoFile.name;photoData=await readFileAsBase64(photoFile);}
+  else if(existing){photoName=existing.photoName||'';photoData=existing.photoData||null;}
+  if(cvFile){cvName=cvFile.name;cvData=await readFileAsBase64(cvFile);}
+  else if(existing){cvName=existing.cvName||'';cvData=existing.cvData||null;}
   const candidate={
   id:editId||uid(),
   nama,
@@ -1621,72 +1617,225 @@ async function deleteCandidate(id){
   notify('Kandidat dihapus.','success');
 }
 
-// ==================== CSV EXPORT/IMPORT ====================
-function exportCSV(){exportCSVData(candidates,'kandidat_'+today()+'.csv')}
-function exportCSVData(data,filename){
-  const stageHeaders=config.stages;
-const header=[
- 'ID',
- 'Nama',
- 'Tanggal Invitation',
- 'Universitas',
- 'Posisi',
- 'Status',
- 'Keterangan',
- 'Experience',
- 'PIC',
- 'Lowongan',
- 'AT',
- ...config.stages,
- 'Stage Notes',
- 'CV Filename',
- 'Created At',
- 'Updated At'
-];
-  const rows=data.map(c=>[c.id,c.nama,c.tanggalInvitation,c.universitas,c.posisi,c.status,(c.keterangan||'').replace(/"/g,'""'),c.experience,c.pic,c.lowongan || '',c.at,...stageHeaders.map(s=>c.checklist&&c.checklist[s]?'true':'false'),(c.stageNotes || '')
-  .replace(/\r?\n/g,'__NL__'),c.cvName||'',c.createdAt,c.updatedAt]);
-  let csv='\uFEFF'+header.map(h=>'"'+h+'"').join(';')+'\n';
-  rows.forEach(r=>{csv+=r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(';')+'\n'});
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-  notify('Data diekspor: '+data.length+' baris.','success');
+// ==================== SPREADSHEET (XLSX) EXPORT/IMPORT ====================
+// Header kolom kanonik untuk spreadsheet (urut & konsisten dengan Google Sheets)
+function spreadsheetHeaders(){
+  return ['ID','Nama','Tanggal Invitation','Universitas','Posisi','Status',
+          'Keterangan','Experience','PIC','Lowongan','AT',
+          ...config.stages,'Stage Notes','CV Filename','Created At','Updated At'];
 }
-function syncCSV(){document.getElementById('syncFile').click()}
-async function handleSync(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=async function(e){
-    const text=e.target.result;
-    const lines=text.split('\n').filter(l=>l.trim());
-    if(lines.length<2){notify('File kosong.','warn');return}
-    const hdr=parseCSVLine(lines[0]);const idx={};hdr.forEach((h,i)=>idx[h.trim().replace(/^\uFEFF/,'')]=i);
-    let count=0,updated=0;
-    for(let i=1;i<lines.length;i++){
-      const vals=parseCSVLine(lines[i]);if(vals.length<3)continue;
-      const g=k=>vals[idx[k]]||'';
-      const checklist={};
-      config.stages.forEach(stage=>{const v=(g(stage)||'').toLowerCase().trim();checklist[stage]=(v==='true'||v==='1'||v==='✔')});
-      const id=g('ID')||uid();
-      const existing=candidates.find(x=>x.id===id);
-      if(existing)updated++;else count++;
-      const candidate={id,nama:g('Nama'),tanggalInvitation:g('Tanggal Invitation')||today(),universitas:g('Universitas'),posisi:g('Posisi'),lowongan:g('Lowongan'),status:g('Status'),keterangan:g('Keterangan'),stageNotes:
- (g('Stage Notes') || '')
-  .replace(/__NL__/g,'\n'),experience:g('Experience'),pic:g('PIC'),at:g('AT')==='Iya'?'Iya':'Tidak',checklist,cvName:g('CV Filename'),cvData:null,createdAt:g('Created At')||new Date().toISOString(),updatedAt:g('Updated At')||new Date().toISOString()};
-      await dbPut('candidates',candidate);
-    }
-    await loadCandidates();populateYearFilter();renderTable();
-    notify(`Sync selesai: ${count} baru, ${updated} diperbarui.`,'success');
+// Konversi 1 kandidat -> object row (untuk SheetJS / JSON cloud)
+function candidateToRow(c){
+  const row={
+    'ID':c.id,'Nama':c.nama||'','Tanggal Invitation':c.tanggalInvitation||'',
+    'Universitas':c.universitas||'','Posisi':c.posisi||'','Status':c.status||'',
+    'Keterangan':c.keterangan||'','Experience':c.experience||'','PIC':c.pic||'',
+    'Lowongan':c.lowongan||'','AT':c.at||'',
+    'Stage Notes':c.stageNotes||'','CV Filename':c.cvName||'',
+    'Created At':c.createdAt||'','Updated At':c.updatedAt||''
   };
-  reader.readAsText(file);event.target.value='';
+  config.stages.forEach(s=>{row[s]=(c.checklist&&c.checklist[s])?'TRUE':'FALSE';});
+  return row;
 }
-function parseCSVLine(line){
-  const result=[];let cur='',inQ=false;
-  for(let i=0;i<line.length;i++){const ch=line[i];
-    if(inQ){if(ch==='"'){if(line[i+1]==='"'){cur+='"';i++}else inQ=false}else cur+=ch}
-    else{if(ch==='"')inQ=true;else if(ch===';'||ch===','){result.push(cur);cur=''}else cur+=ch}
+// Konversi row spreadsheet -> kandidat
+function rowToCandidate(row){
+  const get=k=>{const v=row[k];return v==null?'':String(v).trim();};
+  const checklist={};
+  config.stages.forEach(s=>{
+    const v=(get(s)||'').toLowerCase();
+    checklist[s]=(v==='true'||v==='1'||v==='✔'||v==='yes'||v==='ya');
+  });
+  return {
+    id:get('ID')||uid(),
+    nama:get('Nama'),
+    tanggalInvitation:get('Tanggal Invitation')||today(),
+    universitas:get('Universitas'),
+    posisi:get('Posisi'),
+    status:get('Status'),
+    keterangan:get('Keterangan'),
+    stageNotes:get('Stage Notes').replace(/__NL__/g,'\n'),
+    experience:get('Experience'),
+    pic:get('PIC'),
+    at:get('AT')==='Iya'?'Iya':'Tidak',
+    lowongan:get('Lowongan'),
+    checklist,
+    cvName:get('CV Filename'),
+    cvData:null, photoData:null, photoName:'',
+    createdAt:get('Created At')||new Date().toISOString(),
+    updatedAt:get('Updated At')||new Date().toISOString()
+  };
+}
+
+// ---- EXPORT XLSX ----
+function exportSpreadsheet(){
+  if(typeof XLSX==='undefined'){notify('Library SheetJS belum termuat.','error');return;}
+  const headers=spreadsheetHeaders();
+  const rows=candidates.map(candidateToRow);
+  const ws=XLSX.utils.json_to_sheet(rows,{header:headers});
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Kandidat');
+  XLSX.writeFile(wb,'kandidat_'+today()+'.xlsx');
+  notify('Spreadsheet diekspor: '+rows.length+' baris.','success');
+}
+
+// ---- IMPORT XLSX/CSV (MERGE by ID, tidak menimpa data lain) ----
+function importSpreadsheet(){document.getElementById('syncFile').click();}
+async function handleSpreadsheetImport(event){
+  const file=event.target.files[0];
+  event.target.value='';
+  if(!file)return;
+  try{
+    const buf=await file.arrayBuffer();
+    const wb=XLSX.read(buf,{type:'array'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const rows=XLSX.utils.sheet_to_json(ws,{defval:''});
+    if(!rows.length){notify('File tidak berisi data.','warn');return;}
+    const {added,updated}=await mergeRows(rows);
+    await loadCandidates();populateYearFilter();renderTable();renderDashboard();
+    notify(`Import selesai: ${added} baru, ${updated} diperbarui.`,'success');
+  }catch(err){console.error(err);notify('Gagal membaca spreadsheet: '+err.message,'error');}
+}
+
+// Merge helper — UPSERT by ID + pilih yang Updated At terbaru
+async function mergeRows(rows){
+  let added=0,updated=0;
+  for(const r of rows){
+    const incoming=rowToCandidate(r);
+    const existing=candidates.find(x=>x.id===incoming.id);
+    if(existing){
+      const exU=new Date(existing.updatedAt||0).getTime();
+      const inU=new Date(incoming.updatedAt||0).getTime();
+      if(inU>=exU){
+        // Pertahankan file binary lokal (cvData/photoData) — tidak ikut spreadsheet
+        incoming.cvData=existing.cvData||null;
+        incoming.photoData=existing.photoData||null;
+        incoming.photoName=existing.photoName||incoming.photoName;
+        await dbPut('candidates',incoming);
+        updated++;
+      }
+    }else{
+      await dbPut('candidates',incoming);
+      added++;
+    }
+    // Update in-memory cache
+    const idx=candidates.findIndex(x=>x.id===incoming.id);
+    if(idx>=0)candidates[idx]={...candidates[idx],...incoming};
+    else candidates.push(incoming);
   }
-  result.push(cur);return result;
+  return {added,updated};
+}
+
+// ==================== CLOUD SYNC (Google Apps Script - JSON UPSERT) ====================
+const CLOUD_ENDPOINT='https://script.google.com/macros/s/AKfycbyHxQS1C3-PN4d3FRcCFPUdv7sEPTaq9Oktljz48_vzreHOLCZpRBOLVyTjopw1xwkt/exec';
+
+function updateSyncStatus(msg){
+  const el=document.getElementById('syncStatus');
+  if(el)el.textContent=msg;
+}
+
+async function getSyncPassword(action){
+  // Password disimpan sementara di sessionStorage agar tidak ditanya berulang
+  // dalam satu sesi. Validasi sebenarnya dilakukan di Google Apps Script.
+  let p=sessionStorage.getItem('ksei-sync-pwd');
+  if(!p){
+    p=prompt(`Masukkan password ${action} (Cloud Sync):`);
+    if(p===null||p==='')return null;
+    sessionStorage.setItem('ksei-sync-pwd',p);
+  }
+  return p;
+}
+function clearSyncPassword(){
+  sessionStorage.removeItem('ksei-sync-pwd');
+  notify('Password Cloud Sync dihapus dari sesi ini.','info');
+}
+
+// ---- PULL: ambil semua row dari Google Sheets (JSON) lalu merge ----
+async function pullFromCloud(silent=false){
+  const pwd=await getSyncPassword('Pull');
+  if(!pwd){if(!silent)notify('Pull dibatalkan: password kosong.','error');return;}
+  updateSyncStatus('⏳ Menarik data dari cloud...');
+  try{
+    const url=CLOUD_ENDPOINT+'?action=list&password='+encodeURIComponent(pwd)+'&t='+Date.now();
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(data&&data.error==='unauthorized'){
+      sessionStorage.removeItem('ksei-sync-pwd');
+      updateSyncStatus('❌ Pull gagal: password salah.');
+      if(!silent)notify('Password Cloud salah.','error');
+      return;
+    }
+    const rows=Array.isArray(data)?data:(data.rows||[]);
+    const {added,updated}=await mergeRows(rows);
+    await loadCandidates();populateYearFilter();renderTable();renderDashboard();
+    const stamp=new Date().toLocaleString('id-ID');
+    updateSyncStatus(`✅ Pull OK · ${added} baru, ${updated} diperbarui · ${stamp}`);
+    if(!silent)notify(`Pull selesai: ${added} baru, ${updated} diperbarui.`,'success');
+  }catch(err){
+    console.error(err);
+    updateSyncStatus('❌ Pull gagal: '+err.message);
+    if(!silent)notify('Gagal pull dari cloud.','error');
+  }
+}
+
+// ---- PUSH: kirim semua kandidat ke Google Sheets sebagai UPSERT ----
+async function pushToCloud(silent=false){
+  const pwd=await getSyncPassword('Push');
+  if(!pwd){if(!silent)notify('Push dibatalkan: password kosong.','error');return;}
+  if(!silent){
+    if(!confirm('Push data ke Cloud?\nData akan di-upsert berdasarkan ID (tidak menimpa baris lain).'))return;
+  }
+  updateSyncStatus('⏳ Mengirim data ke cloud...');
+  try{
+    // Buang field berat (cvData base64) supaya payload kecil
+    const payload={action:'upsert',password:pwd,rows:candidates.map(c=>{
+      const r=candidateToRow(c);return r;
+    })};
+    const res=await fetch(CLOUD_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    const text=await res.text();
+    let result; try{result=JSON.parse(text);}catch{result={raw:text};}
+    if(result&&result.error==='unauthorized'){
+      sessionStorage.removeItem('ksei-sync-pwd');
+      updateSyncStatus('❌ Push gagal: password salah.');
+      if(!silent)notify('Password Cloud salah.','error');
+      return;
+    }
+    const stamp=new Date().toLocaleString('id-ID');
+    updateSyncStatus(`✅ Push OK · ${result.upserted??candidates.length} baris · ${stamp}`);
+    if(!silent)notify('Data berhasil dikirim ke Cloud.','success');
+    localStorage.setItem('ksei-last-push',new Date().toISOString());
+  }catch(err){
+    console.error(err);
+    updateSyncStatus('❌ Push gagal: '+err.message);
+    if(!silent)notify('Gagal push ke cloud.','error');
+  }
+}
+
+// ---- AUTO-SYNC (periodik) ----
+let _autoSyncTimer=null;
+function toggleAutoSync(){
+  const btn=document.getElementById('autoSyncBtn');
+  if(_autoSyncTimer){
+    clearInterval(_autoSyncTimer);_autoSyncTimer=null;
+    localStorage.setItem('ksei-autosync','0');
+    btn.textContent='🔁 Auto-Sync: OFF';
+    notify('Auto-Sync dimatikan.','info');
+  }else{
+    startAutoSync();
+    localStorage.setItem('ksei-autosync','1');
+    btn.textContent='🔁 Auto-Sync: ON';
+    notify('Auto-Sync aktif (setiap 2 menit).','success');
+  }
+}
+function startAutoSync(){
+  if(_autoSyncTimer)clearInterval(_autoSyncTimer);
+  // Pull awal lalu setiap 2 menit
+  pullFromCloud(true);
+  _autoSyncTimer=setInterval(()=>pullFromCloud(true),120000);
 }
 
 // ==================== CONFIG PANEL ====================
@@ -1763,289 +1912,12 @@ document.addEventListener('keydown',e=>{
   populateFilterSelects();
   renderTable();
   renderDashboard();
+  if(localStorage.getItem('ksei-autosync')==='1'){
+    const b=document.getElementById('autoSyncBtn');if(b)b.textContent='🔁 Auto-Sync: ON';
+    startAutoSync();
+  }
 })();
 
-// ==================== AUTOSYNC ====================
-
-async function autoSyncCSV(){
-
-// ambil password dari security.json
-const securityResponse =
-  await fetch("./config/security.json");
-
-const security =
-  await securityResponse.json();
-
-// input password user
-const pass = prompt(
-  "Masukkan password sync:"
-);
-
-// cek password
-if(
-  pass !== security.syncPassword
-){
-  alert("Password salah!");
-  return;
-}
-
-  try{
-
-    // ambil file csv
-    const response = await fetch(
- "https://script.google.com/macros/s/AKfycbxyhhHoNM5ENV3-h9d0W1awWM8XWVrTYlPlKpQU8E5bnMSCfb3A1-m7kZMOPlodG4Fn4w/exec"
-);
-
-    if(!response.ok){
-      alert("File CSV tidak ditemukan");
-      return;
-    }
-
-    const csvText = await response.text();
-// bersihkan database lokal terlebih dahulu
-await dbClear('candidates');
-
-const lines = csvText
-  .trim()
-  .split(/\r?\n/)
-  .filter(line => line.trim() !== "");
-
-// auto detect separator
-const separator =
-  lines[0].includes(";")
-    ? ";"
-    : ",";
-
-// ambil header
-const rawHeaders =
- parseCSVLine(lines[0])
- .map(h =>
-   h.trim().replace(/^\uFEFF/,'')
- );
-
-// mapping header CSV → sistem HTML
-const headerMap = {
-  "ID":"id",
-  "Nama":"nama",
-  "Tanggal Invitation":"tanggalInvitation",
-  "Universitas":"universitas",
-  "Posisi":"posisi",
-  "Status":"status",
-  "Keterangan":"keterangan",
-  "Experience":"experience",
-  "PIC":"pic",
-  "Lowongan":"lowongan",
-  "AT":"at",
-  "Stage Notes":"stageNotes",
-  "CV Filename":"cvName",
-  "Created At":"createdAt",
-  "Updated At":"updatedAt"
-};
-
-const data = lines
-  .slice(1)
-  .map(line => {
-
- const cols = parseCSVLine(line);
-
-    let obj = {};
-
-   rawHeaders.forEach((header, i) => {
-
-  const key =
-    headerMap[header] || header;
-
-  obj[key] = cols[i] || "";
-
-  if(key === "stageNotes"){
-    obj[key] =
-      obj[key].replace(/__NL__/g,"\n");
-  }
-
-});
-
-    // checklist recruitment
-    obj.checklist = {};
-
-config.stages.forEach(stage=>{
-
-  const stageIndex =
-    rawHeaders.indexOf(stage);
-
-  obj.checklist[stage] =
-    cols[stageIndex] === "true" ||
-    cols[stageIndex] === "TRUE";
-
-});
-
-    return obj;
-
-  });
-
-    // simpan ke indexeddb
-    for(const item of data){
-
-      // auto id
-      if(!item.id){
-        item.id = Date.now() + Math.random();
-      }
-
-      await dbPut(
-        "candidates",
-        item
-      );
-    }
-
-    await loadCandidates();
-
-    renderTable();
-
-    renderDashboard();
-
-    notify(
-      "Auto Sync CSV berhasil!",
-      "success"
-    );
-
-  }catch(err){
-
-    console.error(err);
-
-    notify(
-      "Gagal sync CSV",
-      "error"
-    );
-
-  }
-
-}
-
-function generateCSV(){
-
- const stageHeaders = config.stages;
-
- const header = [
-  'ID',
-  'Nama',
-  'Tanggal Invitation',
-  'Universitas',
-  'Posisi',
-  'Status',
-  'Keterangan',
-  'Experience',
-  'PIC',
-  'Lowongan',
-  'AT',
-  ...config.stages,
-  'Stage Notes',
-  'CV Filename',
-  'Created At',
-  'Updated At'
- ];
-
- const rows = candidates.map(c=>[
-  c.id,
-  c.nama,
-  c.tanggalInvitation,
-  c.universitas,
-  c.posisi,
-  c.status,
-  (c.keterangan||'').replace(/"/g,'""'),
-  c.experience,
-  c.pic,
-  c.lowongan || '',
-  c.at,
-  ...stageHeaders.map(
-   s=>c.checklist&&c.checklist[s]
-    ? 'true'
-    : 'false'
-  ),
-  (c.stageNotes || '')
-  .replace(/\r?\n/g,'__NL__'),
-  c.cvName || '',
-  c.createdAt,
-  c.updatedAt
- ]);
-
- let csv =
-  '\uFEFF' +
-  header.map(h=>'"'+h+'"').join(';') +
-  '\n';
-
- rows.forEach(r=>{
-  csv +=
-   r.map(v=>
-    '"'+String(v||'').replace(/"/g,'""')+'"'
-   ).join(';')
-   + '\n';
- });
-
- return csv;
-}
-
-async function saveToCloud(){
-
-// ambil password dari security.json
-const securityResponse =
-  await fetch("./config/security.json");
-
-const security =
-  await securityResponse.json();
-
-// input password user
-const pass = prompt(
-  "Masukkan password Save:"
-);
-
-// cek password
-if(
-  pass !== security.syncPassword
-){
-  alert("Password salah!");
-  return;
-}
-
-  try{ 
-
-
-const confirmSave = confirm(
-  "Apakah Anda yakin akan melakukan Save To Cloud?\nPastikan data sudah benar."
-);
-
-if(!confirmSave){
-  return;
-}
-    const csv = generateCSV();
-
-    const response =
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbxyhhHoNM5ENV3-h9d0W1awWM8XWVrTYlPlKpQU8E5bnMSCfb3A1-m7kZMOPlodG4Fn4w/exec",
-        {
-          method:"POST",
-          body:csv
-        }
-      );
-
-    const result =
-      await response.text();
-
-    notify(
-      "☁ Data berhasil disimpan ke Cloud",
-      "success"
-    );
-
-  }catch(err){
-
-    console.error(err);
-
-    notify(
-      "❌ Gagal save ke cloud",
-      "error"
-    );
-
-  }
-
-}
 </script>
 
 <footer style="margin-top:30px;background:linear-gradient(135deg,#4361ee,#3a0ca3);color:#fff;padding:24px 20px;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -4px 20px rgba(0,0,0,.1)">
