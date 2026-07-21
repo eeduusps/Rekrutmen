@@ -21,7 +21,7 @@
   },
   {
     "divisi":"OTI1",
-    "kebutuhan":1
+    "kebutuhan":0
   },
   {
     "divisi":"KSI",
@@ -41,6 +41,6 @@
   },
     {
     "divisi":"KEU",
-    "kebutuhan":1
+    "kebutuhan":0
   }
 ]
