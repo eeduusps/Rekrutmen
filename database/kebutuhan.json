@@ -13,7 +13,7 @@
   },
   {
     "divisi":"API",
-    "kebutuhan":1
+    "kebutuhan":0
   },
   {
     "divisi":"UMU",
@@ -25,7 +25,7 @@
   },
   {
     "divisi":"KSI",
-    "kebutuhan":1
+    "kebutuhan":0
   },
   {
     "divisi":"JTI",
@@ -37,9 +37,13 @@
   },
   {
     "divisi":"PRK",
+    "kebutuhan":0
+  },
+{
+    "divisi":"LII",
     "kebutuhan":1
   },
-    {
+{
     "divisi":"KEU",
     "kebutuhan":0
   }
